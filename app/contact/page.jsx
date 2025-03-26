@@ -1,27 +1,50 @@
 'use client'
-import { useState } from 'react'
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
+import { GoLaw } from 'react-icons/go'
+import Link from 'next/link'
+import { useForm, ValidationError } from '@formspree/react'
+import { FaArrowLeft } from 'react-icons/fa'
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
-  })
+  const [state, handleSubmit] = useForm("xeoazdoj");
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Add your form submission logic here
-    console.log(formData)
-  }
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+  if (state.succeeded) {
+    return (
+      <main className="bg-white min-h-screen pt-32">
+        <div className="max-w-3xl mx-auto px-4 py-16 text-center">
+          <div className="bg-white p-8 rounded-lg shadow-md">
+            <div className="mb-8">
+              <svg
+                className="mx-auto h-16 w-16 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              Thank you for your message!
+            </h1>
+            <p className="text-lg text-gray-600 mb-8">
+              We will get back to you shortly.
+            </p>
+            <Link 
+              href="/" 
+              className="inline-flex items-center gap-2 text-blue-400 px-6 py-3 rounded-md transition-colors"
+            >
+              <FaArrowLeft className="text-sm" />
+              <span>Back to Home</span>
+            </Link>
+          </div>
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -85,7 +108,22 @@ export default function Contact() {
                 <p className="text-gray-600">More Info: info@quantumlaw.com.au</p>
                 <p className="text-gray-600">Careers: hr@quantumlaw.com.au</p>
               </div>
+
+              <div className="bg-white p-8 rounded-lg shadow-sm">
+                <div className="flex items-center mb-4">
+                  <GoLaw className="text-blue-600 text-xl mr-3" />
+                  <h3 className="text-xl font-semibold text-gray-900">Schedule a Consultation</h3>
+                </div>
+                <Link 
+                href="https://calendly.com/quantumlaw/strategyconsult?month=2025-03"
+                target="_blank"
+                className='underline text-blue-600'
+              >
+                Click here to schedule a consultation
+              </Link>
+              </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -106,10 +144,8 @@ export default function Contact() {
                   type="text"
                   id="name"
                   name="name"
-                  value={formData.name}
-                  onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
@@ -120,10 +156,13 @@ export default function Contact() {
                   type="email"
                   id="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <ValidationError 
+                  prefix="Email" 
+                  field="email"
+                  errors={state.errors}
                 />
               </div>
             </div>
@@ -137,9 +176,7 @@ export default function Contact() {
                   type="tel"
                   id="phone"
                   name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
@@ -150,10 +187,8 @@ export default function Contact() {
                   type="text"
                   id="subject"
                   name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
@@ -165,20 +200,24 @@ export default function Contact() {
               <textarea
                 id="message"
                 name="message"
-                value={formData.message}
-                onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <ValidationError 
+                prefix="Message" 
+                field="message"
+                errors={state.errors}
               />
             </div>
 
             <div className="text-center">
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-colors"
+                className="bg-blue-600 text-white px-8 py-2 rounded-md hover:bg-blue-700 transition-colors"
+                disabled={state.submitting}
               >
-                Send Message
+                {state.submitting ? 'Sending...' : 'Send Message'}
               </button>
             </div>
           </form>
