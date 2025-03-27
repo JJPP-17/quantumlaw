@@ -55,7 +55,7 @@ export default function Contact() {
           Contact Us
         </h1>
         <p className="text-xl text-gray-600 mb-12">
-          Get in touch with our legal experts for professional assistance
+           with our legal experts for professional assistance
         </p>
       </section>
 

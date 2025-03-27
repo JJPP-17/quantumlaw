@@ -3,10 +3,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaBalanceScale, FaBuilding, FaHandshake, FaGavel, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { assets } from "./assets/assets";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import GoogleReviews from './components/GoogleReviews';
 
 export default function Home() {
+  useEffect(() => {
+    // BIG HACK TO REMOVE THE FREE GOOGLE REVIEWS WIDGET
+    setTimeout(() => {
+      const element = Array.from(document.querySelectorAll('a')).find(el => el.textContent.includes('Free Google Reviews widget'));
+      if (element) {
+        element.remove();
+      }
+    }, 5000);
+  }, []);
   const practiceAreas = [
     {
       icon: <FaBalanceScale className="h-12 w-12 text-blue-600" />,
@@ -80,13 +89,13 @@ export default function Home() {
   const slidesPerView = 4; // Number of slides to show at once
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => 
+    setCurrentSlide((prev) =>
       prev === Math.ceil(practiceAreas.length / slidesPerView) - 1 ? 0 : prev + 1
     );
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => 
+    setCurrentSlide((prev) =>
       prev === 0 ? Math.ceil(practiceAreas.length / slidesPerView) - 1 : prev - 1
     );
   };
@@ -102,15 +111,15 @@ export default function Home() {
             <div className="max-w-2xl">
               <div className="space-y-6 animate-fadeIn">
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-                  We handle difficult and 
+                  We handle difficult and
                   <span className="text-blue-600"> high stakes cases</span>
                 </h1>
                 <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-                  Quantum Law Group is a leading law firm providing expert legal services 
+                  Quantum Law Group is a leading law firm providing expert legal services
                   across multiple practice areas.
                 </p>
                 <div className="flex flex-wrap gap-4 pt-4">
-                  <Link 
+                  <Link
                     href="https://calendly.com/quantumlaw/strategyconsult?month=2025-03"
                     target="_blank"
                     className="inline-block bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
@@ -165,7 +174,7 @@ export default function Home() {
               Our Practice Areas
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              We offer comprehensive legal services across multiple practice areas, 
+              We offer comprehensive legal services across multiple practice areas,
               delivering tailored solutions to meet your specific needs.
             </p>
           </div>
@@ -173,19 +182,19 @@ export default function Home() {
           <div className="relative">
             {/* Carousel Container */}
             <div className="overflow-hidden">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
-                style={{ 
+                style={{
                   transform: `translateX(-${currentSlide * (100 / slidesPerView)}%)`,
                   gap: '2rem'
                 }}
               >
                 {practiceAreas.map((area, index) => (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className="flex-none w-full md:w-1/2 lg:w-1/4 px-4"
                   >
-                    <Link 
+                    <Link
                       href={area.link}
                       className="group bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 block h-full"
                     >
@@ -205,7 +214,7 @@ export default function Home() {
             </div>
 
             {/* Navigation Buttons */}
-            <button 
+            <button
               onClick={prevSlide}
               className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -ml-5"
             >
@@ -214,7 +223,7 @@ export default function Home() {
               </span>
             </button>
 
-            <button 
+            <button
               onClick={nextSlide}
               className="absolute right-0 top-1/2 -translate-y-1/2 z-10 -mr-5"
             >
@@ -234,7 +243,7 @@ export default function Home() {
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {awards.map((award, index) => (
-              <div 
+              <div
                 key={index}
                 className="border border-gray-200 p-6 rounded-lg hover:border-blue-400 transition-colors"
               >
@@ -265,13 +274,13 @@ export default function Home() {
               Schedule a consultation with our experienced legal team today
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link 
+              <Link
                 href="/contact"
                 className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
               >
                 Contact Us
               </Link>
-              <Link 
+              <Link
                 href="https://calendly.com/quantumlaw/strategyconsult?month=2025-03"
                 target="_blank"
                 className="inline-flex items-center justify-center border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-md hover:bg-blue-50 transition-all duration-300 w-full sm:w-auto"
