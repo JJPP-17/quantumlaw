@@ -33,6 +33,7 @@ export default function Footer() {
                     </a>
                 </div>
                 <p className="text-center text-sm">
+                    Liability limited by a scheme approved under Professional Standards Legislation <br />
                     © {new Date().getFullYear()} Quantum Law Group. All rights reserved.   
                 </p>
             </div>
