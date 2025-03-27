@@ -34,7 +34,9 @@ export default function Footer() {
                 </div>
                 <p className="text-center text-sm">
                     Liability limited by a scheme approved under Professional Standards Legislation <br />
-                    © {new Date().getFullYear()} Quantum Law Group. All rights reserved.   
+                    © {new Date().getFullYear()} Quantum Law Group. All rights reserved.   <br/>
+                    <Link href="/privacy-policy" className="text-blue-300 hover:text-blue-500 transition-colors pr-5">Privacy Policy</Link>
+                    <Link href="/termsofuse" className="text-blue-300 hover:text-blue-500 transition-colors">Terms of Service</Link>
                 </p>
             </div>
         </footer>

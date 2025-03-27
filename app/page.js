@@ -257,37 +257,49 @@ export default function Home() {
       {/* Contact Section */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-            Get in Touch
-          </h2>
-          <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
-            Our team of experienced legal professionals is ready to assist you. 
-            Contact us to discuss how we can help with your legal needs.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="p-6 bg-white rounded-lg shadow-sm">
-              <h3 className="font-semibold text-gray-900 mb-2">Address</h3>
-              <p className="text-gray-600">
-                Suite 1503, Level 15<br/>
-                447 Kent Street<br />
-                Sydney NSW 2000
-              </p>
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              GET IN TOUCH
+            </h2>
+            <p className="text-lg text-gray-600 mb-8">
+              Schedule a consultation with our experienced legal team today
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link 
+                href="/contact"
+                className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+              >
+                Contact Us
+              </Link>
+              <Link 
+                href="https://calendly.com/quantumlaw/strategyconsult?month=2025-03"
+                target="_blank"
+                className="inline-flex items-center justify-center border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-md hover:bg-blue-50 transition-all duration-300 w-full sm:w-auto"
+              >
+                Schedule Consultation
+              </Link>
             </div>
-            <div className="p-6 bg-white rounded-lg shadow-sm">
-              <h3 className="font-semibold text-gray-900 mb-2">Phone</h3>
-              <p className="text-gray-600">+61 2 9188 8866</p>
-            </div>
-            <div className="p-6 bg-white rounded-lg shadow-sm">
-              <h3 className="font-semibold text-gray-900 mb-2">Email</h3>
-              <p className="text-gray-600">info@quantumlaw.com.au</p>
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="flex items-center justify-center space-x-2 text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                </svg>
+                <span>Quick Response Time</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2 text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>Expert Legal Team</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2 text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                </svg>
+                <span>Client-Focused Service</span>
+              </div>
             </div>
           </div>
-          <Link 
-            href="/contact"
-            className="inline-block bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-colors mt-12"
-          >
-            Contact Us
-          </Link>
         </div>
       </section>
     </main>
