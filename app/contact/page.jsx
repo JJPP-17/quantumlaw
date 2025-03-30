@@ -51,10 +51,10 @@ export default function Contact() {
     <main className="bg-white pt-32">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 md:px-8">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
           Contact Us
         </h1>
-        <p className="text-xl text-gray-600 mb-12">
+        <p className="text-xl text-gray-600 mb-12 text-center">
            with our legal experts for professional assistance
         </p>
       </section>
@@ -107,6 +107,7 @@ export default function Contact() {
                 </div>
                 <p className="text-gray-600">More Info: info@quantumlaw.com.au</p>
                 <p className="text-gray-600">Careers: hr@quantumlaw.com.au</p>
+                <p className="text-gray-600">Billing: accounts@quantumlaw.com.au</p>
               </div>
 
               <div className="bg-white p-8 rounded-lg shadow-sm">

@@ -136,7 +136,7 @@ export default function Home() {
                   <p className="text-sm text-gray-600">Total Amount at Stake in Disputes</p>
                 </div>
                 <div className="space-y-2">
-                  <div className="text-4xl font-bold text-blue-600">15+</div>
+                  <div className="text-4xl font-bold text-blue-600">98+</div>
                   <p className="text-sm text-gray-600">Awards Won or Listed</p>
                 </div>
                 <div className="space-y-2">

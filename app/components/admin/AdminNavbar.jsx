@@ -12,10 +12,11 @@ export default function AdminNavbar() {
           <div className="flex">
             <Link href="/admin" className="flex items-center">
               <span className="text-xl font-bold text-gray-900">
-                Quantum Admin
+                Welcome Quantum Admin
               </span>
             </Link>
           </div>
+          <p className="text-gray-600 text-center pt-5">You can manage your website here</p>
           <div className="flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}

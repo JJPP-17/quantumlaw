@@ -20,15 +20,76 @@ const teamMembers = [
     image: assets.william,
   },
   {
+    name: "Jordan Paris",
+    role: "Chief Commercial Officer",
+    image: assets.jordan,
+  },
+  {
     name: "Adriana Vontelas",
     role: "Special Counsel",
     image: assets.adriana,
   },
   {
-    name: "Jordan Paris",
-    role: "Chief Commercial Officer",
-    image: assets.jordan,
+    name: "Catherine Robinson",
+    role: "Senior Associate",
+    image: assets.noimage,
   },
+  {
+    name: "Haoyu Zhang",
+    role: "Associate",
+    image: assets.noimage,
+  },
+  {
+    name: "Louisa Liu",
+    role: "Solicitor",
+    image: assets.noimage,
+  },
+  {
+    name: "Janice Cheng",
+    role: "Solicitor",
+    image: assets.noimage,
+  },
+  {
+    name: "Reina Lee",
+    role: "Paralegal",
+    image: assets.noimage,
+  },
+  {
+    name: "Vincent Tao",
+    role: "Paralegal",
+    image: assets.noimage,
+  },
+  {
+    name: "Eric Wu",
+    role: "Paralegal",
+    image: assets.noimage,
+  },
+  {
+    name: "Chloris Chiu",
+    role: "Paralegal",
+    image: assets.noimage,
+  },
+  {
+    name: "Jyoti Jain",
+    role: "Paralegal",
+    image: assets.noimage,
+  },
+  {
+    name: "Ronaputi Fauzia Purba",
+    role: "HR & Development Assistant",
+    image: assets.noimage,
+  },
+  {
+    name: "Ponglada Prasertsincharoen",
+    role: "Accounts Administrator",
+    image: assets.noimage,
+  },
+  
+  
+  
+  
+  
+  
 ]
 
 export default function OurTeam() {
@@ -36,14 +97,17 @@ export default function OurTeam() {
     <main className="bg-white pt-32">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-16">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">
           Our Team
         </h1>
+        <p className="text-center text-gray-600">
+          We work together on a task-force basis on all of our matters, bringing to bear the requisite mix of people and expertise across practice areas.
+        </p>
       </section>
 
       {/* Team Grid */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {teamMembers.map((member, index) => (
             <Link 
               key={index}

@@ -7,7 +7,8 @@ import adriana from '../assets/adriana.png'
 import jordan from '../assets/jordan.png'
 import background from '../assets/background.png'
 import frontpage from '../assets/frontpage.png'
-import daven from '../assets/daven.jpg'
+import daven from '../assets/daven.png'
+import noimage from '../assets/noimage.jpg'
 
 export const assets = {
     logo,
@@ -19,5 +20,6 @@ export const assets = {
     adriana,
     jordan,
     background,
-    frontpage
+    frontpage,
+    noimage
 }

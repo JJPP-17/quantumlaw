@@ -26,6 +26,43 @@ const jobOpenings = [
       "Flexible work arrangements"
     ],
     slug: "associate-commercial-property"
+  },
+  {
+    title: "Graduate Lawyer",
+    location: "SYDNEY",
+    type: "FULL TIME",
+    highlights: [
+      "Be part of the growing Property Practice",
+      "Benefit from close interaction with partners",
+      "Partnership track mentoring",
+      "Flexible work arrangements"
+    ],
+    slug: "associate-commercial-property"
+  },
+  {
+    title: "Paralegal",
+    location: "SYDNEY",
+    type: "FULL TIME",
+    type: "PART TIME",
+    highlights: [
+      "Be part of the growing Property Practice",
+      "Benefit from close interaction with partners",
+      "Partnership track mentoring",
+      "Flexible work arrangements"
+    ],
+    slug: "associate-commercial-property"
+  },
+  {
+    title: "Internship",
+    location: "SYDNEY",
+    type: "PART TIME",
+    highlights: [
+      "Be part of the growing Property Practice",
+      "Benefit from close interaction with partners",
+      "Partnership track mentoring",
+      "Flexible work arrangements"
+    ],
+    slug: "associate-commercial-property"
   }
 ]
 
@@ -45,7 +82,7 @@ const values = [
 ]
 
 export default function Careers() {
-  const [activeFilter, setActiveFilter] = useState('All Locations')
+  const [activeFilter, setActiveFilter] = useState('Sydney')
 
   return (
     <main className="bg-white pt-32">
@@ -73,7 +110,7 @@ export default function Careers() {
         
         {/* Location Filter */}
         <div className="flex flex-wrap gap-4 mb-8">
-          {['All Locations', 'Sydney', 'Melbourne', 'Brisbane'].map((location) => (
+          {['Sydney'].map((location) => (
             <button
               key={location}
               onClick={() => setActiveFilter(location)}
