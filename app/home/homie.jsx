@@ -2,11 +2,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaBalanceScale, FaBuilding, FaHandshake, FaGavel, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { assets } from "./assets/assets";
+import { assets } from "../assets/assets";
 import { useState, useEffect } from 'react';
-import GoogleReviews from './components/GoogleReviews';
+import GoogleReviews from '../components/GoogleReviews';
 
-export default function Home() {
+
+export default function Homie() {
   useEffect(() => {
     // BIG HACK TO REMOVE THE FREE GOOGLE REVIEWS WIDGET
     setTimeout(() => {
@@ -16,6 +17,98 @@ export default function Home() {
       }
     }, 5000);
   }, []);
+
+  const targets = [
+    { id: 'Total Amount at Stake in Disputes', count: 117, suffix: '+' },
+    { id: 'Awards Won or Listed', count: 98, suffix: '+' },
+    { id: 'Total Amount of Transactional and Advisory Matters To Date', count: 870860369, suffix: '+' },
+    { id: 'Total years in maximum penalty for Criminal Defence', count: 575, suffix: '+' },
+  ];
+
+  const [counts, setCounts] = useState(targets.map(target => ({ id: target.id, value: 0, suffix: target.suffix })));
+
+  useEffect(() => {
+    const duration = 2000; // Total duration for the counting animation
+    const totalCounts = targets.map(target => target.count);
+    const maxCount = Math.max(...totalCounts);
+    const minCount = Math.min(...totalCounts);
+    const incrementTime = duration / maxCount; // Time per increment
+
+    const interval = setInterval(() => {
+        setCounts(prevCounts => {
+          const newCounts = prevCounts.map(count => {
+            const target = targets.find(t => t.id === count.id);
+            let newValue = count.value;
+
+                  // Increment logic based on the value of newValue
+                  if (newValue < 1000) {
+                    newValue += 5; // Increment by 5 if less than 1000
+                  } else if (newValue >= 1000 && newValue < 10000) {
+                    newValue += 100; // Increment by 100 if between 1000 and 9999
+                  } else if (newValue >= 10000 && newValue < 1000000) {
+                    newValue += 500000; // Increment by 5000 if between 10000 and 999999
+                  } else if (newValue >= 1000000) {
+                    newValue += 1000000; // Increment by 1000000 if 1000000 or more
+                  }
+        
+                  // Ensure it doesn't exceed the final count
+                  if (newValue >= target.count) {
+                    newValue = target.count;
+                  }
+
+        
+                  return { ...count, value: newValue };
+                });
+        
+                // Check if the lowest count has reached its final value
+                const lowestCountReached = newCounts.find(count => count.value >= minCount);
+        
+                if (lowestCountReached) {
+                  // Calculate remaining time for the other counts
+                  const remainingCounts = newCounts.filter(count => count.value < count.count);
+                  const remainingDuration = duration - (minCount / maxCount) * duration; // Calculate remaining time
+                  const newIncrementTime = remainingDuration / remainingCounts.length; // Adjust increment time for remaining counts
+        
+                  remainingCounts.forEach(count => {
+                    const target = targets.find(t => t.id === count.id);
+                    let newValue = count.value;
+        
+                    // Increment logic based on the value of newValue
+                    if (newValue < 1000) {
+                      newValue += 5; // Increment by 5 if less than 1000
+                    } else if (newValue >= 1000 && newValue < 10000) {
+                      newValue += 100 + 'K+'; // Increment by 100 if between 1000 and 9999
+                    } else if (newValue >= 10000 && newValue < 1000000) {
+                      newValue += 500000; // Increment by 5000 if between 10000 and 999999
+                    } else if (newValue >= 1000000) {
+                      newValue += 10000000; // Increment by 1000000 if 1000000 or more
+                    }
+        
+                    // Ensure it doesn't exceed the final count
+                    if (newValue >= target.count) {
+                      newValue = target.count;
+                    }
+        
+                    setCounts(prevCounts => prevCounts.map(c => 
+                      c.id === count.id ? { ...c, value: newValue } : c
+                    ));
+                  });
+                }
+        
+                // Check if all counts have reached their final values
+                if (newCounts.every(count => count.value === targets.find(t => t.id === count.id).count)) {
+                  clearInterval(interval); // Stop the interval if all counts are complete
+                }
+        
+                return newCounts;
+              });
+            }, incrementTime);
+        
+            return () => clearInterval(interval); // Cleanup on unmount
+          }, [targets])
+
+  
+  
   const practiceAreas = [
     {
       icon: <FaBalanceScale className="h-12 w-12 text-blue-600" />,
@@ -130,25 +223,25 @@ export default function Home() {
               </div>
 
               {/* Stats Section */}
-              <div className="grid grid-cols-2 gap-6 mt-16 animate-slideUp">
-                <div className="space-y-2">
-                  <div className="text-4xl font-bold text-blue-600">117M+</div>
-                  <p className="text-sm text-gray-600">Total Amount at Stake in Disputes</p>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-4xl font-bold text-blue-600">98+</div>
-                  <p className="text-sm text-gray-600">Awards Won or Listed</p>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-4xl font-bold text-blue-600">$870,860,369</div>
-                  <p className="text-sm text-gray-600">Total Amount of Transactional and Advisory Matters To Date</p>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-4xl font-bold text-blue-600">575</div>
-                  <p className="text-sm text-gray-600">Total years in maximum penalty for Criminal Defence</p>
-                </div>
+        <div className="pb-12 mt-10 sm:pb-16">
+            <div className="relative max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
+              <div className="max-w-4xl mx-auto grid grid-cols-2 gap-6">      
+                  {counts.map(count => (
+                    <div key={count.id} className="flex flex-col p-6 text-center  transition duration-300">
+                      <dt className="order-2 mt-2 text-sm font-medium leading-6 text-gray-700">
+                        {count.id.replace('Count', '')} 
+                      </dt>
+                      <dd className="order-1 text-4xl font-extrabold leading-none text-blue-600">
+                        {count.value.toLocaleString()}{count.suffix}
+                      </dd>
+                    </div>
+                  ))}
+               
               </div>
-            </div>
+       
+          </div>
+          </div>
+          </div>
 
             {/* Right Side Image with Animation */}
             <div className="relative hidden md:block h-[600px] animate-slideIn">
@@ -311,6 +404,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+
     </main>
   );
 }

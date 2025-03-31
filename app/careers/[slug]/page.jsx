@@ -131,7 +131,6 @@ export default function JobPosting({ params }) {
 
         <div className="mt-12 text-center">
           <Link
-            href="/application"
             className="inline-block bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-colors"
           >
             Apply Now
