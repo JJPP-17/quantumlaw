@@ -1,8 +1,8 @@
 
-import LoginPage from './loginPage'
+import LoginDetails from './details'
 
 export default function LoginPage() {
   return (
-    <LoginPage />
+    <LoginDetails />
   );
 }
