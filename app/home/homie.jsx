@@ -35,80 +35,77 @@ export default function Homie() {
     const incrementTime = duration / maxCount; // Time per increment
 
     const interval = setInterval(() => {
-        setCounts(prevCounts => {
-          const newCounts = prevCounts.map(count => {
+      setCounts(prevCounts => {
+        const newCounts = prevCounts.map(count => {
+          const target = targets.find(t => t.id === count.id);
+          let newValue = count.value;
+
+          // Increment logic based on the value of newValue
+          if (newValue < 1000) {
+            newValue += 5; // Increment by 5 if less than 1000
+          } else if (newValue >= 1000 && newValue < 10000) {
+            newValue += 100; // Increment by 100 if between 1000 and 9999
+          } else if (newValue >= 10000 && newValue < 1000000) {
+            newValue += 500000; // Increment by 5000 if between 10000 and 999999
+          } else if (newValue >= 1000000) {
+            newValue += 10000000; // Increment by 1000000 if 1000000 or more
+          }
+
+          // Ensure it doesn't exceed the final count
+          if (newValue >= target.count) {
+            newValue = target.count;
+          }
+
+          return { ...count, value: newValue };
+        });
+
+        // Check if the lowest count has reached its final value
+        const lowestCountReached = newCounts.find(count => count.value >= minCount);
+
+        if (lowestCountReached) {
+          // Calculate remaining time for the other counts
+          const remainingCounts = newCounts.filter(count => count.value < count.count);
+          const remainingDuration = duration - (minCount / maxCount) * duration; // Calculate remaining time
+          const newIncrementTime = remainingDuration / remainingCounts.length; // Adjust increment time for remaining counts
+
+          remainingCounts.forEach(count => {
             const target = targets.find(t => t.id === count.id);
             let newValue = count.value;
 
-                  // Increment logic based on the value of newValue
-                  if (newValue < 1000) {
-                    newValue += 5; // Increment by 5 if less than 1000
-                  } else if (newValue >= 1000 && newValue < 10000) {
-                    newValue += 100; // Increment by 100 if between 1000 and 9999
-                  } else if (newValue >= 10000 && newValue < 1000000) {
-                    newValue += 500000; // Increment by 5000 if between 10000 and 999999
-                  } else if (newValue >= 1000000) {
-                    newValue += 1000000; // Increment by 1000000 if 1000000 or more
-                  }
-        
-                  // Ensure it doesn't exceed the final count
-                  if (newValue >= target.count) {
-                    newValue = target.count;
-                  }
+            // Increment logic based on the value of newValue
+            if (newValue < 1000) {
+              newValue += 5; // Increment by 5 if less than 1000
+            } else if (newValue >= 1000 && newValue < 10000) {
+              newValue += 100; // Increment by 100 if between 1000 and 9999
+            } else if (newValue >= 10000 && newValue < 1000000) {
+              newValue += 5000; // Increment by 5000 if between 10000 and 999999
+            } else if (newValue >= 1000000) {
+              newValue += 1000000; // Increment by 1000000 if 1000000 or more
+            }
 
-        
-                  return { ...count, value: newValue };
-                });
-        
-                // Check if the lowest count has reached its final value
-                const lowestCountReached = newCounts.find(count => count.value >= minCount);
-        
-                if (lowestCountReached) {
-                  // Calculate remaining time for the other counts
-                  const remainingCounts = newCounts.filter(count => count.value < count.count);
-                  const remainingDuration = duration - (minCount / maxCount) * duration; // Calculate remaining time
-                  const newIncrementTime = remainingDuration / remainingCounts.length; // Adjust increment time for remaining counts
-        
-                  remainingCounts.forEach(count => {
-                    const target = targets.find(t => t.id === count.id);
-                    let newValue = count.value;
-        
-                    // Increment logic based on the value of newValue
-                    if (newValue < 1000) {
-                      newValue += 5; // Increment by 5 if less than 1000
-                    } else if (newValue >= 1000 && newValue < 10000) {
-                      newValue += 100 + 'K+'; // Increment by 100 if between 1000 and 9999
-                    } else if (newValue >= 10000 && newValue < 1000000) {
-                      newValue += 500000; // Increment by 5000 if between 10000 and 999999
-                    } else if (newValue >= 1000000) {
-                      newValue += 10000000; // Increment by 1000000 if 1000000 or more
-                    }
-        
-                    // Ensure it doesn't exceed the final count
-                    if (newValue >= target.count) {
-                      newValue = target.count;
-                    }
-        
-                    setCounts(prevCounts => prevCounts.map(c => 
-                      c.id === count.id ? { ...c, value: newValue } : c
-                    ));
-                  });
-                }
-        
-                // Check if all counts have reached their final values
-                if (newCounts.every(count => count.value === targets.find(t => t.id === count.id).count)) {
-                  clearInterval(interval); // Stop the interval if all counts are complete
-                }
-        
-                return newCounts;
-              });
-            }, incrementTime);
-        
-            return () => clearInterval(interval); // Cleanup on unmount
-          }, [targets])
+            // Ensure it doesn't exceed the final count
+            if (newValue >= target.count) {
+              newValue = target.count;
+            }
 
-  
-  
+            setCounts(prevCounts => prevCounts.map(c => 
+              c.id === count.id ? { ...c, value: newValue } : c
+            ));
+          });
+        }
+
+        // Check if all counts have reached their final values
+        if (newCounts.every(count => count.value === targets.find(t => t.id === count.id).count)) {
+          clearInterval(interval); // Stop the interval if all counts are complete
+        }
+
+        return newCounts;
+      });
+    }, incrementTime);
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [targets]);
+
   const practiceAreas = [
     {
       icon: <FaBalanceScale className="h-12 w-12 text-blue-600" />,
@@ -193,10 +190,20 @@ export default function Homie() {
     );
   };
 
+  // Function to format the count with K+ or M+
+  const formatCount = (value) => {
+    if (value >= 1000000) {
+      return (value / 1000000).toFixed(1) + 'M+'; // Format for millions
+    } else if (value >= 1000) {
+      return (value / 1000).toFixed(1) + 'K+'; // Format for thousands
+    }
+    return value.toString() + '+'; // Return as is for smaller numbers with a plus sign
+  };
+
   return (
     <main className="bg-white">
       {/* Hero Section */}
-      <section className="relative min-h-[95vh] flex items-center bg-gradient-to-r from-gray-50 to-white">
+      <section className="relative min-h-[95vh] flex items-center bg-gradient-to-r from-gray-50 to-white pt-30">
         {/* Content Container */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 w-full">
           <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -232,7 +239,7 @@ export default function Homie() {
                         {count.id.replace('Count', '')} 
                       </dt>
                       <dd className="order-1 text-4xl font-extrabold leading-none text-blue-600">
-                        {count.value.toLocaleString()}{count.suffix}
+                        {formatCount(count.value)}
                       </dd>
                     </div>
                   ))}

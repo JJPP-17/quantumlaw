@@ -25,6 +25,11 @@ const teamMembers = [
     image: assets.jordan,
   },
   {
+    name: "Monika Lama",
+    role: "Special Counsel - Family law",
+    image: assets.noimage,
+  },
+  {
     name: "Adriana Vontelas",
     role: "Special Counsel",
     image: assets.adriana,

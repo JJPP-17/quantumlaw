@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const isAuthenticated = () => {
@@ -9,10 +9,13 @@ const isAuthenticated = () => {
 
 export default function AdminDashboard() {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!isAuthenticated()) {
       router.push('/login'); // Redirect to login if not authenticated
+    } else {
+      setLoading(false);
     }
   }, []);
 
