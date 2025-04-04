@@ -1,8 +1,10 @@
 import AdminDashboard from './dashboard'
+import { getContents } from '../actions/content';
+export default async function Admin() {
+  const { data: initialContents = [] } = await getContents();
 
-export default function Admin() {
- 
+  
   return (
-    <AdminDashboard />
+    <AdminDashboard contents={initialContents} />
   );
 }

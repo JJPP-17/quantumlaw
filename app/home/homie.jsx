@@ -5,9 +5,9 @@ import { FaBalanceScale, FaBuilding, FaHandshake, FaGavel, FaChevronLeft, FaChev
 import { assets } from "../assets/assets";
 import { useState, useEffect } from 'react';
 import GoogleReviews from '../components/GoogleReviews';
+import { getContent } from '../utils/content';
 
-
-export default function Homie() {
+export default function Homie({ contents }) {
   useEffect(() => {
     // BIG HACK TO REMOVE THE FREE GOOGLE REVIEWS WIDGET
     setTimeout(() => {
@@ -19,10 +19,10 @@ export default function Homie() {
   }, []);
 
   const targets = [
-    { id: 'Total Amount at Stake in Disputes', count: 117, suffix: '+' },
-    { id: 'Awards Won or Listed', count: 98, suffix: '+' },
-    { id: 'Total Amount of Transactional and Advisory Matters To Date', count: 870860369, suffix: '+' },
-    { id: 'Total years in maximum penalty for Criminal Defence', count: 575, suffix: '+' },
+    { id: getContent('totalAmountAtStakeInDisputes', contents), count: getContent('disputes', contents), suffix: '+' },
+    { id: getContent('numAwardsWonOrListedText', contents), count: 98, suffix: '+' },
+    { id: getContent('numTransactionsText', contents), count: 870860369, suffix: '+' },
+    { id: getContent('yearsPenaltyText', contents), count: 575, suffix: '+' },
   ];
 
   const [counts, setCounts] = useState(targets.map(target => ({ id: target.id, value: 0, suffix: target.suffix })));

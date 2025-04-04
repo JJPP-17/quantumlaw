@@ -1,10 +1,11 @@
-
+import { getContents } from '../actions/content';
 import Homie from './homie';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { data: initialContents = [] } = await getContents();
   return (
     <div>
-      <Homie />
+      <Homie contents={initialContents} />
     </div>
   )
 }
