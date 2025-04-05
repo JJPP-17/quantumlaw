@@ -5,7 +5,7 @@ import { FaBalanceScale, FaBuilding, FaHandshake, FaGavel, FaChevronLeft, FaChev
 import { assets } from "../assets/assets";
 import { useState, useEffect } from 'react';
 import GoogleReviews from '../components/GoogleReviews';
-import { getContent } from '../utils/content';
+import { getValue } from '../utils/content';
 
 export default function Homie({ contents }) {
   useEffect(() => {
@@ -19,10 +19,10 @@ export default function Homie({ contents }) {
   }, []);
 
   const targets = [
-    { id: getContent('totalAmountAtStakeInDisputes', contents), count: getContent('disputes', contents), suffix: '+' },
-    { id: getContent('numAwardsWonOrListedText', contents), count: 98, suffix: '+' },
-    { id: getContent('numTransactionsText', contents), count: 870860369, suffix: '+' },
-    { id: getContent('yearsPenaltyText', contents), count: 575, suffix: '+' },
+    { id: getValue('totalAmountAtStakeInDisputes', contents), count: getValue('disputes', contents), suffix: '+' },
+    { id: getValue('numAwardsWonOrListedText', contents), count: 98, suffix: '+' },
+    { id: getValue('numTransactionsText', contents), count: 870860369, suffix: '+' },
+    { id: getValue('yearsPenaltyText', contents), count: 575, suffix: '+' },
   ];
 
   const [counts, setCounts] = useState(targets.map(target => ({ id: target.id, value: 0, suffix: target.suffix })));
@@ -106,56 +106,17 @@ export default function Homie({ contents }) {
     return () => clearInterval(interval); // Cleanup on unmount
   }, [targets]);
 
-  const practiceAreas = [
-    {
-      icon: <FaBalanceScale className="h-12 w-12 text-blue-600" />,
-      title: "Dispute Resolution and Litigation",
-      description: "Expert guidance in business transactions, mergers & acquisitions",
-      link: "/whatwedo/corporate-law"
-    },
-    {
-      icon: <FaBuilding className="h-12 w-12 text-blue-600" />,
-      title: "Property Law",
-      description: "Comprehensive legal solutions for property matters",
-      link: "/whatwedo/real-estate"
-    },
-    {
-      icon: <FaHandshake className="h-12 w-12 text-blue-600" />,
-      title: "Corporate and Commercial Law",
-      description: "Strategic advice for business operations and contracts",
-      link: "/whatwedo/commercial-law"
-    },
-    {
-      icon: <FaGavel className="h-12 w-12 text-blue-600" />,
-      title: "Asset Protection",
-      description: "Strong representation in dispute resolution",
-      link: "/whatwedo/litigation"
-    },
-    {
-      icon: <FaGavel className="h-12 w-12 text-blue-600" />,
-      title: "Family Law",
-      description: "Strong representation in dispute resolution",
-      link: "/whatwedo/litigation"
-    },
-    {
-      icon: <FaGavel className="h-12 w-12 text-blue-600" />,
-      title: "Criminal Law",
-      description: "Strong representation in dispute resolution",
-      link: "/whatwedo/litigation"
-    },
-    {
-      icon: <FaGavel className="h-12 w-12 text-blue-600" />,
-      title: "Taxation Law",
-      description: "Strong representation in dispute resolution",
-      link: "/whatwedo/litigation"
-    },
-    {
-      icon: <FaGavel className="h-12 w-12 text-blue-600" />,
-      title: "Immigration Law",
-      description: "Strong representation in dispute resolution",
-      link: "/whatwedo/litigation"
-    }
-  ];
+  // Get practice areas from contents
+  const practiceAreaContents = contents.filter(content => 
+    content.key.startsWith('whatWedoTitle')
+  );
+
+  // Create practice areas from database content
+  const practiceAreas = practiceAreaContents.map(content => ({
+    title: content.value,
+    description: content.description,
+    link: `/whatwedo/${content.key.toLowerCase().replace('whatwedotitle', '')}`
+  }));
 
   const awards = [
     {
@@ -176,18 +137,20 @@ export default function Homie({ contents }) {
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slidesPerView = 4; // Number of slides to show at once
+  const slidesPerView = 3; // Changed from 4 to 3
 
   const nextSlide = () => {
-    setCurrentSlide((prev) =>
-      prev === Math.ceil(practiceAreas.length / slidesPerView) - 1 ? 0 : prev + 1
-    );
+    setCurrentSlide((prev) => {
+      const maxSlides = Math.ceil(practiceAreas.length / slidesPerView) - 1;
+      return prev >= maxSlides ? 0 : prev + 1;
+    });
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) =>
-      prev === 0 ? Math.ceil(practiceAreas.length / slidesPerView) - 1 : prev - 1
-    );
+    setCurrentSlide((prev) => {
+      const maxSlides = Math.ceil(practiceAreas.length / slidesPerView) - 1;
+      return prev === 0 ? maxSlides : prev - 1;
+    });
   };
 
   // Function to format the count with K+ or M+
@@ -267,70 +230,55 @@ export default function Homie({ contents }) {
       </section>
 
       {/* Practice Areas */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Our Practice Areas
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
               We offer comprehensive legal services across multiple practice areas,
               delivering tailored solutions to meet your specific needs.
             </p>
           </div>
 
+          {/* Horizontal Scrollable Menu */}
           <div className="relative">
-            {/* Carousel Container */}
-            <div className="overflow-hidden">
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{
-                  transform: `translateX(-${currentSlide * (100 / slidesPerView)}%)`,
-                  gap: '2rem'
-                }}
-              >
+            <div className="overflow-x-auto pb-6 hide-scrollbar">
+              <div className="flex gap-6 min-w-max px-4">
                 {practiceAreas.map((area, index) => (
                   <div
                     key={index}
-                    className="flex-none w-full md:w-1/2 lg:w-1/4 px-4"
+                    className="w-[300px]"
                   >
                     <Link
                       href={area.link}
-                      className="group bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 block h-full"
+                      className="group bg-white p-4 rounded-md border-2 border-gray-200
+                        hover:border-blue-500 hover:shadow-lg transition-all duration-300 
+                        block h-full"
                     >
-                      <div className="flex justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                        {area.icon}
+                      <div className="space-y-3">
+                        <h3 className="text-base font-bold text-gray-900 text-center 
+                          group-hover:text-blue-600 transition-colors duration-300">
+                          {area.title}
+                        </h3>
+                        <div className="h-[2px] w-12 bg-blue-500 mx-auto opacity-0 
+                          group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <p className="text-gray-600 text-center text-sm leading-relaxed line-clamp-2">
+                          {area.description}
+                        </p>
+                        <div className="flex justify-center opacity-0 
+                          group-hover:opacity-100 transition-opacity duration-300">
+                          <span className="text-blue-600 text-sm font-medium">
+                            Learn More →
+                          </span>
+                        </div>
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-900 text-center mb-2">
-                        {area.title}
-                      </h3>
-                      <p className="text-gray-600 text-center">
-                        {area.description}
-                      </p>
                     </Link>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* Navigation Buttons */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -ml-5"
-            >
-              <span className="w-10 h-10 bg-white flex items-center justify-center rounded-full shadow-md hover:bg-gray-50">
-                <FaChevronLeft className="w-5 h-5 text-blue-600" />
-              </span>
-            </button>
-
-            <button
-              onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 -mr-5"
-            >
-              <span className="w-10 h-10 bg-white flex items-center justify-center rounded-full shadow-md hover:bg-gray-50">
-                <FaChevronRight className="w-5 h-5 text-blue-600" />
-              </span>
-            </button>
           </div>
         </div>
       </section>

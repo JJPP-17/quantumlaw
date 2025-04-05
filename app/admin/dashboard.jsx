@@ -2,8 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import ContentManager from '../components/ContentManager';
-import { getContents } from '../actions/content';
-import { getContent } from '../utils/content';
+import { getValue } from '../utils/content';
 
 const isAuthenticated = () => {
   // Replace this with your actual authentication logic
@@ -30,34 +29,34 @@ export default function AdminDashboard({ contents }) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-sm">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
-            {getContent('totalAmountAtStakeInDisputes', contents)}
+            {getValue('totalAmountAtStakeInDisputes', contents)}
           </h2>
           <p className="text-3xl font-bold text-blue-600">{
-            getContent('totalAmountAtStakeInDisputesNumber', contents)
+            getValue('totalAmountAtStakeInDisputesNumber', contents)
           }</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-sm">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
-            {getContent('numAwardsWonOrListedText', contents)}
+            {getValue('numAwardsWonOrListedText', contents)}
           </h2>
           <p className="text-3xl font-bold text-blue-600">
-            {getContent('numAwardsWonOrListed', contents)}
+            {getValue('numAwardsWonOrListed', contents)}
           </p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-sm">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
-          {getContent('numTransactionsText', contents)}
+          {getValue('numTransactionsText', contents)}
           </h2>
           <p className="text-3xl font-bold text-blue-600">
-            {getContent('numTransactions', contents)}
+            {getValue('numTransactions', contents)}
           </p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-sm">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
-          {getContent('yearsPenaltyText', contents)}
+          {getValue('yearsPenaltyText', contents)}
           </h2>
           <p className="text-3xl font-bold text-blue-600">
-            {getContent('yearsPenalty', contents)}
+            {getValue('yearsPenalty', contents)}
           </p>
         </div>
       </div>
