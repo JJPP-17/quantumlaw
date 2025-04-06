@@ -49,9 +49,6 @@ export default async function WhatWeDo() {
                 className="group bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-blue-100"
               >
                 <div className="flex justify-center mb-6">
-                  <div className="text-4xl text-blue-600 group-hover:scale-110 transition-transform duration-300">
-                    {area.icon}
-                  </div>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 text-center mb-4 group-hover:text-blue-600 transition-colors">
                   {area.title}

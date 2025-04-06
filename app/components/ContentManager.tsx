@@ -116,11 +116,13 @@ export default function ContentManager() {
         </div>
         <div>
           <label className="block mb-2 text-gray-900">Description</label>
-          <input
-            type="text"
+          <textarea
             name="description"
             defaultValue={selectedContent?.description}
-            className="w-full p-2 border rounded text-gray-900"
+            className="w-full p-2 border rounded text-gray-900 min-h-[200px] resize-y font-mono"
+            rows={12}
+            style={{ whiteSpace: 'pre-wrap' }}
+            placeholder="Enter description here..."
           />
         </div>
 
