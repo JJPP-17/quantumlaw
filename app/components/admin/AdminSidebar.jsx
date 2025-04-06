@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-export default function AdminSidebar({ contents }) {
+export default function AdminSidebar() {
   const pathname = usePathname()
 
   const menuItems = [
