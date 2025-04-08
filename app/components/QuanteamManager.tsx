@@ -24,7 +24,7 @@ export default function QuantTeamManager() {
     mobilenumber: "",
     email: "",
   });
-
+console.log(teamMembers)
   useEffect(() => {
     fetchTeamMembers();
   }, []);
@@ -32,39 +32,21 @@ export default function QuantTeamManager() {
   async function fetchTeamMembers() {
     try {
       const { data, error } = await supabase
-        .from('ourteam')
-        .select('*')
-        .order('membername', { ascending: true });
+        .from("ourteam")
+        .select("*")
+        .order("membername", { ascending: true });
 
       if (error) throw error;
-      setTeamMembers(data || []);
+      setTeamMembers(
+        data.map((member) => ({
+          ...member,
+          image: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/quantimages/${member.id}/${member.filename}`,
+        })) || []
+      );
     } catch (error) {
-      console.error('Error fetching team members:', error);
+      console.error("Error fetching team members:", error);
     }
   }
-
-  const handleMemberSelect = async (memberId: string) => {
-    if (memberId === "new") {
-      setSelectedMember(null);
-      resetForm();
-    } else {
-      const member = teamMembers.find(m => m.id === Number(memberId));
-      if (member) {
-        setSelectedMember(member);
-        setText({
-          membername: member.membername,
-          filename: member.filename,
-          position: member.position,
-          description: member.description,
-          expertise: member.expertise,
-          firmnumber: member.firmnumber,
-          mobilenumber: member.mobilenumber,
-          email: member.email,
-        });
-        setFileURL(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/quantimages/${member.id}/${member.filename}`);
-      }
-    }
-  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -75,28 +57,29 @@ export default function QuantTeamManager() {
       setPreview(fileURL);
     }
   };
-  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      if (!file) {
-        alert('Please select a file to upload');
+      const result = selectedMember;
+      if (!file && !selectedMember) {
+        alert("Please select a file to upload");
         return;
       }
 
       // Prepare file details
-      const fileExt = file.name.split(".").pop();
+      const fileExt = file ? file.name.split(".").pop() : selectedMember?.filename.split(".").pop();
       const timestamp = Date.now();
       const fileName = `${text.membername}_${timestamp}.${fileExt}`;
       const randomid = crypto.randomUUID();
-      const filePath = `${randomid}/${fileName}`;
+      const filePath = selectedMember ? `${selectedMember.id}/${fileName}` : `${randomid}/${fileName}`;
 
       // Upload image
       const { error: uploadError } = await supabase.storage
         .from("quantimages")
-        .upload(filePath, file);
+        .upload(filePath, file, {upsert: true});
 
       if (uploadError) throw uploadError;
 
@@ -105,40 +88,57 @@ export default function QuantTeamManager() {
         .from("quantimages")
         .getPublicUrl(filePath);
 
-      // Insert team member data
-      const { error: dbError } = await supabase.from('ourteam').insert([{
-        id: randomid,
-        membername: text.membername,
-        filename: fileName,
-        position: text.position,
-        description: text.description,
-        expertise: text.expertise,
-        firmnumber: text.firmnumber,
-        mobilenumber: text.mobilenumber,
-        email: text.email,
-        created_at: new Date().toISOString()
-      }]);
+      if (selectedMember) {
+        const { error: updateError } = await supabase
+          .from("ourteam")
+          .update({
+            membername: text.membername,
+            filename: file ? fileName : selectedMember.filename,
+            position: text.position,
+            description: text.description,
+            expertise: text.expertise,
+            firmnumber: text.firmnumber,
+            mobilenumber: text.mobilenumber,
+            email: text.email,
+          })
+          .eq("id", selectedMember.id);
+      } else {
+        // Insert team member data
+        const { error: dbError } = await supabase.from("ourteam").insert([
+          {
+            id: randomid,
+            membername: text.membername,
+            filename: fileName,
+            position: text.position,
+            description: text.description,
+            expertise: text.expertise,
+            firmnumber: text.firmnumber,
+            mobilenumber: text.mobilenumber,
+            email: text.email,
+            created_at: new Date().toISOString(),
+          },
+        ]);
 
-      if (dbError) throw dbError;
-      
+        if (dbError) throw dbError;
+      }
 
-      alert('Yay! Your upload is successful');
+      alert("Yay! Your upload is successful");
       resetForm();
       window.location.reload();
     } catch (error) {
       setMessage(`Error: ${error.message}`);
-      console.error('Error:', error);
+      console.error("Error:", error);
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   const onChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setText({ ...text, [e.target.name]: e.target.value });
   };
-  
+
   const resetForm = () => {
     setSelectedMember(null);
     setFile(null);
@@ -149,7 +149,7 @@ export default function QuantTeamManager() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-6 text-gray-700">
-        {selectedMember ? 'Edit Team Member' : 'Create Team Member'}
+        {selectedMember ? "Edit Team Member" : "Create Team Member"}
       </h1>
 
       {message && (
@@ -170,14 +170,28 @@ export default function QuantTeamManager() {
             <select
               className="w-full p-2 border rounded text-gray-900"
               name="membername"
-              value={selectedMember?.membername || "new"}
+              value={selectedMember?.id || "new"}
               onChange={(e) => {
                 if (e.target.value === "new") {
                   setSelectedMember(null);
-                  resetForm();
                 } else {
-                  const member = teamMembers.find(m => m.membername === e.target.value);
+                  const member = teamMembers.find(
+                    (m) => m.membername === e.target.value
+                  );
                   setSelectedMember(member || null);
+                  setPreview(
+                    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/quantimages/${member?.id}/${member?.filename}`
+                  );
+                  setText({
+                    membername: member?.membername || "",
+                    filename: member?.filename || "",
+                    position: member?.position || "",
+                    description: member?.description || "",
+                    expertise: member?.expertise || "",
+                    firmnumber: member?.firmnumber || "",
+                    mobilenumber: member?.mobilenumber || "",
+                    email: member?.email || "",
+                  });
                 }
               }}
             >
@@ -188,6 +202,13 @@ export default function QuantTeamManager() {
                 </option>
               ))}
             </select>
+            {!selectedMember && (
+              <input
+                type="text"
+                name="new_member"
+                placeholder="Enter new member"
+              />
+            )}
           </div>
         </div>
 
@@ -230,7 +251,8 @@ export default function QuantTeamManager() {
                     />
                   </svg>
                   <p className="mb-2 text-sm text-gray-500">
-                    <span className="font-semibold">Click to upload</span> or drag and drop
+                    <span className="font-semibold">Click to upload</span> or
+                    drag and drop
                   </p>
                 </div>
               )}
@@ -253,17 +275,15 @@ export default function QuantTeamManager() {
           <div>
             <label className="block mb-2 text-gray-900 font-medium">Name</label>
             <div className="flex gap-2">
-            
-                <input
-                  type="text"
-                  name="membername"
-                  defaultValue={selectedMember?.membername}
-                  onChange={onChangeHandler}
-                  placeholder="Enter name"
-                  className="w-full p-2 border rounded text-gray-900"
-                  required
-                />
-              
+              <input
+                type="text"
+                name="membername"
+                defaultValue={selectedMember?.membername}
+                onChange={onChangeHandler}
+                placeholder="Enter name"
+                className="w-full p-2 border rounded text-gray-900"
+                required
+              />
             </div>
           </div>
 
@@ -281,7 +301,9 @@ export default function QuantTeamManager() {
           </div>
 
           <div>
-            <label className="block mb-2 text-gray-900 font-medium">Description</label>
+            <label className="block mb-2 text-gray-900 font-medium">
+              Description
+            </label>
             <textarea
               name="description"
               defaultValue={selectedMember?.description}
@@ -293,7 +315,9 @@ export default function QuantTeamManager() {
           </div>
 
           <div>
-            <label className="block mb-2 text-gray-900 font-medium">Expertise</label>
+            <label className="block mb-2 text-gray-900 font-medium">
+              Expertise
+            </label>
             <textarea
               name="expertise"
               defaultValue={selectedMember?.expertise}
@@ -301,13 +325,14 @@ export default function QuantTeamManager() {
               className="w-full p-2 border rounded text-gray-900 min-h-[100px] resize-y"
               placeholder="Enter areas of expertise..."
               required
-              
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block mb-2 text-gray-900 font-medium">Firm Number</label>
+              <label className="block mb-2 text-gray-900 font-medium">
+                Firm Number
+              </label>
               <input
                 type="tel"
                 name="firmnumber"
@@ -319,7 +344,9 @@ export default function QuantTeamManager() {
             </div>
 
             <div>
-              <label className="block mb-2 text-gray-900 font-medium">Mobile Number</label>
+              <label className="block mb-2 text-gray-900 font-medium">
+                Mobile Number
+              </label>
               <input
                 type="tel"
                 name="mobilenumber"
@@ -331,7 +358,9 @@ export default function QuantTeamManager() {
             </div>
 
             <div>
-              <label className="block mb-2 text-gray-900 font-medium">Email</label>
+              <label className="block mb-2 text-gray-900 font-medium">
+                Email
+              </label>
               <input
                 type="email"
                 name="email"

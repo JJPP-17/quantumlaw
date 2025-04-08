@@ -16,6 +16,7 @@ export interface QuantTeam {
     filename: string;
     created_at: string;
     membername: string;
+    image: string;
 }
   
 export async function getQuantTeam() {
