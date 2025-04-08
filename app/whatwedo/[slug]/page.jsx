@@ -76,7 +76,7 @@ const RichTextRenderer = ({ content }) => {
               {block.items.map((item, itemIndex) => (
                 <li key={itemIndex}>
                   <div className="flex items-center gap-3 text-gray-700">
-                    <div className="w-2 h-2 rounded-full bg-blue-600 mt-[2px]" />
+                    <div className="w-2 h-2 rounded-full bg-black mt-[2px]" />
                     <span className="text-lg">{item.text}</span>
                   </div>
                   {item.items.length > 0 && (
@@ -169,11 +169,11 @@ export default async function PracticeArea({ params }) {
       {ourservicesDescription && (
         <section className="max-w-7xl mx-auto px-4 md:px-8 mb-20">
           <div className="max-w-4xl">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Our Services
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              Our Services:
             </h2>
             <div className="rounded-lg space-y-6">
-              <div className="prose max-w-none">
+              <div className="prose max-w-none text-lg">
                 <RichTextRenderer content={ourservicesDescription.description} />
               </div>
             </div>

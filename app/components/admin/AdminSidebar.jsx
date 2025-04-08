@@ -9,7 +9,7 @@ export default function AdminSidebar() {
     { href: '/admin', label: 'Dashboard' },
     { href: '/admin/awards', label: 'Awards' },
     { href: '/admin/whatwedo', label: 'What We Do' },
-    { href: '/admin/team', label: 'Team' },
+    { href: '/admin/team/list', label: 'Team' },
     { href: '/admin/news', label: 'News' },
     { href: '/admin/careers', label: 'Careers' }
   ]
