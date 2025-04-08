@@ -48,7 +48,7 @@ export default function QuantTeamManager() {
       setSelectedMember(null);
       resetForm();
     } else {
-      const member = teamMembers.find(m => m.id === memberId);
+      const member = teamMembers.find(m => m.id === Number(memberId));
       if (member) {
         setSelectedMember(member);
         setText({

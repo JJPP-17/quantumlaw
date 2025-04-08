@@ -9,14 +9,16 @@ export interface QuantTeam {
     name: string;
     position: string;
     description: string;
-    created_at?: string;
     expertise: string;
     firmnumber: string;
     mobilenumber: string;
     email: string;
-  }
+    filename: string;
+    created_at: string;
+    membername: string;
+}
   
-  export async function getQuantTeam() {
+export async function getQuantTeam() {
     try {
       const { data, error } = await supabase
         .from("ourteam")
@@ -28,9 +30,9 @@ export interface QuantTeam {
     } catch (error) {
       return { error: "Failed to fetch contents" };
     }
-  }
+}
   
-  export async function createQuantTeam(formData: FormData) {
+export async function createQuantTeam(formData: FormData) {
     try {
       const { error } = await supabase.from("ourteam").insert({
         name: formData.get("name"),
@@ -51,9 +53,9 @@ export interface QuantTeam {
       return { error: "Failed to create Quant Team" };
       
     }
-  }
+}
   
-  export async function updateQuantTeam(id: number, formData: FormData) {
+export async function updateQuantTeam(id: number, formData: FormData) {
     try {
       const { error } = await supabase
         .from("ourteam")
@@ -75,6 +77,6 @@ export interface QuantTeam {
     } catch (error) {
       return { error: "Failed to update Quant Team" };
     }
-  }
+}
   
   
