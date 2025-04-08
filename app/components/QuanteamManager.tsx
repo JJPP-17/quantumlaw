@@ -149,7 +149,7 @@ export default function QuantTeamManager() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-6 text-gray-700">
-        {selectedMember ? 'Edit Team Member' : 'Create New Team Member'}
+        {selectedMember ? 'Edit Team Member' : 'Create Team Member'}
       </h1>
 
       {message && (
@@ -166,17 +166,24 @@ export default function QuantTeamManager() {
 
       <form id="quantTeamForm" onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block mb-2 text-gray-900">Select Team Member</label>
           <div className="flex gap-2">
             <select
-              name="memberId"
-              value={selectedMember?.id || "new"}
-              onChange={(e) => handleMemberSelect(e.target.value)}
               className="w-full p-2 border rounded text-gray-900"
+              name="membername"
+              value={selectedMember?.membername || "new"}
+              onChange={(e) => {
+                if (e.target.value === "new") {
+                  setSelectedMember(null);
+                  resetForm();
+                } else {
+                  const member = teamMembers.find(m => m.membername === e.target.value);
+                  setSelectedMember(member || null);
+                }
+              }}
             >
-              <option value="new">+ Create new member</option>
+              <option value="new">Select Team Member</option>
               {teamMembers.map((member) => (
-                <option key={member.id} value={member.id}>
+                <option key={member.id} value={member.membername}>
                   {member.membername}
                 </option>
               ))}
