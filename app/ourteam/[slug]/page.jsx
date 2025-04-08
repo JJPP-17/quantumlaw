@@ -101,19 +101,19 @@ export default function TeamMember({ params }) {
               <div className="space-y-2">
                 {member.firmnumber && (
                   <p className="text-gray-600">
-                    <FaPhone className="inline-block mr-2" />
+                    <FaPhone className="inline-block mr-2 text-blue-600" />
                     <span className="font-medium">Office:</span> {member.firmnumber}    
                   </p>
                 )}
                 {member.mobilenumber && (
                   <p className="text-gray-600">
-                    <FaMobile className="inline-block mr-2" />
+                    <FaMobile className="inline-block mr-2 text-blue-600" />
                     <span className="font-medium">Mobile:</span> {member.mobilenumber}
                   </p>
                 )}
                 {member.email && (
                   <p className="text-gray-600">
-                    <FaEnvelope className="inline-block mr-2" />
+                    <FaEnvelope className="inline-block mr-2 text-blue-600" />
                     <span className="font-medium">Email:</span> {member.email}
                   </p>
                 )}

@@ -60,7 +60,7 @@ export default function TeamTable() {
   }
 
   if (isLoading) {
-    return <div className="text-center py-4 text-gray-700">Loading...</div>;
+    return <div className="text-center py-4 text-gray-600">Loading...</div>;
   }
 
   return (
@@ -128,12 +128,6 @@ export default function TeamTable() {
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm">
                 <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => window.location.href = `/admin/team/edit/${member.id}`}
-                    className="text-blue-600 hover:text-blue-800"
-                  >
-                    <FaEdit className="w-5 h-5" />
-                  </button>
                   <button
                     onClick={() => handleDelete(member.id)}
                     className="text-red-600 hover:text-red-800"
