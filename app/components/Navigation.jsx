@@ -89,7 +89,7 @@ export default function Navigation() {
                 <div className="text-gray-600 px-2">ABOUT US</div>
                 <div className="pl-4 space-y-2">
                   <Link href="/aboutus" className="block text-gray-600">ABOUT</Link>
-                  <Link href="/awards" className="block text-gray-600">AWARDS AND RECOGNITION</Link>
+                  <Link href="/aboutus/awards" className="block text-gray-600">AWARDS AND RECOGNITION</Link>
                 </div>
               </div>
               <Link href="/whatwedo" className="text-gray-600">WHAT WE DO</Link>
