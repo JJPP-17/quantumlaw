@@ -7,7 +7,7 @@ export default function AdminSidebar() {
 
   const menuItems = [
     { href: '/admin', label: 'Dashboard' },
-    { href: '/admin/awards', label: 'Awards' },
+    { href: '/admin/awards/list', label: 'Awards' },
     { href: '/admin/whatwedo', label: 'What We Do' },
     { href: '/admin/team/list', label: 'Team' },
     { href: '/admin/news', label: 'News' },

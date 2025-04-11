@@ -90,12 +90,13 @@ export default function TeamTable() {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {members.map((member) => (
+            member.membername && (
             <tr key={member.id} className="hover:bg-gray-50">
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="h-16 w-16 relative rounded-lg overflow-hidden">
                   <Image
                     src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/quantimages/${member.id}/${member.filename}`}
-                    alt={member.membername}
+                    alt={member.filename}
                     fill
                     className="object-cover"
                   />
@@ -137,6 +138,7 @@ export default function TeamTable() {
                 </div>
               </td>
             </tr>
+            )
           ))}
         </tbody>
       </table>

@@ -33,7 +33,7 @@ export default function OurTeam() {
   }
 
   return (
-    <main className="bg-white pt-32">
+    <main className="bg-white pt-32">   
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-16">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">
@@ -48,9 +48,10 @@ export default function OurTeam() {
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-20">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {teamMembers.map((member) => (
+            member && member.membername ? (
             <Link 
               key={member.id}
-              href={`/ourteam/${member.membername.toLowerCase().replace(/\s+/g, '-')}`}
+              href={`/ourteam/${member.membername}`}
               className="group block hover:shadow-lg transition-shadow rounded-lg overflow-hidden"
             >
               {/* Image Container */}
@@ -73,6 +74,7 @@ export default function OurTeam() {
                 </p>
               </div>
             </Link>
+          ) : null
           ))}
         </div>
       </section>

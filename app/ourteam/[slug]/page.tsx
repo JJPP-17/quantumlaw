@@ -4,28 +4,34 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../../lib/supabaseClient'
 import { FaPhone, FaMobile, FaEnvelope } from 'react-icons/fa'
+import { use } from 'react'
 
-export default function TeamMember({ params }) {
+
+export default function TeamMember({ params }: {params: Promise<{slug: string}>}) {
+
   const [member, setMember] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { slug } = use(params);
 
   useEffect(() => {
     fetchTeamMember();
-  }, []);
+  }, [slug]);
 
   async function fetchTeamMember() {
     try {
-      // Convert slug back to name format
-      const memberName = params.slug.split('-').map(word => 
+      // Use the slug from use(params)
+      const memberName = decodeURIComponent(slug.split('-').map(word => 
         word.charAt(0).toUpperCase() + word.slice(1)
-      ).join(' ');
+      ).join(' '));
+      console.log('memberName', memberName);
 
+      
       const { data, error } = await supabase
         .from('ourteam')
         .select('*')
         .ilike('membername', memberName)
         .single();
-
+  
       if (error) throw error;
       setMember(data);
     } catch (error) {

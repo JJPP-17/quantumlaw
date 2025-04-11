@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "app/components/QuanteamAward.jsx", "app/ourteam/[slug]/page.tsx"  ],
   "exclude": [
     "node_modules"
   ]
