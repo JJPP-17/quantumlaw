@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 export default function MyLink({
   href,
   children,
+  className,
 }: {
   href: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   const [loading, setLoading] = useState(false);
   const currentPath = usePathname();
@@ -29,7 +31,7 @@ export default function MyLink({
       href={href}
       onClick={handleClick}
       prefetch={false}
-      className="flex items-center justify-center"
+      className={`flex items-center justify-center ${className}`}
     >
       {children}
       {loading && (
