@@ -6,7 +6,7 @@ import { assets } from '../assets/assets'
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
-
+import MyLink from './MyLink';
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false)
@@ -15,9 +15,9 @@ export default function Navigation() {
     <header className="fixed w-full bg-white border-b border-gray-100 z-50">
       <nav className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex justify-between items-center h-20">
-          <Link href="/" className="text-2xl font-bold text-gray-900">
+          <MyLink href="/" className="text-2xl font-bold text-gray-900">
             <Image src={assets.logo} alt="Quantum Law Logo" width={200} height={200} />
-          </Link>
+          </MyLink>
 
           <div className="hidden md:flex space-x-8 text-md sm:text-base">
             <div className="relative group">
@@ -36,12 +36,12 @@ export default function Navigation() {
                   onMouseEnter={() => setIsAboutDropdownOpen(true)}
                   onMouseLeave={() => setIsAboutDropdownOpen(false)}
                 >
-                  <Link 
+                  <MyLink 
                     href="/aboutus" 
                     className="text-md sm:text-base block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-blue-400"
                   >
                     ABOUT
-                  </Link>
+                  </MyLink>
                   <Link 
                     href="/aboutus/awards" 
                     className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-blue-400"
@@ -52,21 +52,21 @@ export default function Navigation() {
               )}
             </div>
 
-            <Link href="/whatwedo" className="text-gray-600 hover:text-blue-400">
+            <MyLink href="/whatwedo" className="text-gray-600 hover:text-blue-400">
               WHAT WE DO
-            </Link>
-            <Link href="/ourteam" className="text-gray-600 hover:text-blue-400">
+            </MyLink>
+            <MyLink href="/ourteam" className="text-gray-600 hover:text-blue-400">
               OUR TEAM
-            </Link>
-            <Link href="/news" className="text-gray-600 hover:text-blue-400">
+            </MyLink>
+            <MyLink href="/news" className="text-gray-600 hover:text-blue-400">
               NEWS
-            </Link>
-            <Link href="/careers" className="text-gray-600 hover:text-blue-400">
+            </MyLink>
+            <MyLink href="/careers" className="text-gray-600 hover:text-blue-400">
               CAREERS
-            </Link>
-            <Link href="/contact" className="text-gray-600 hover:text-blue-400">
+            </MyLink>
+            <MyLink href="/contact" className="text-gray-600 hover:text-blue-400">
               CONTACT
-            </Link>
+            </MyLink>
             <AiOutlineSearch className="text-gray-600 hover:text-blue-400 h-6 w-6 cursor-pointer" />
           </div>
 
@@ -88,15 +88,15 @@ export default function Navigation() {
               <div className="space-y-2">
                 <div className="text-gray-600 px-2">ABOUT US</div>
                 <div className="pl-4 space-y-2">
-                  <Link href="/aboutus" className="block text-gray-600">ABOUT</Link>
-                  <Link href="/aboutus/awards" className="block text-gray-600">AWARDS AND RECOGNITION</Link>
+                  <MyLink href="/aboutus" className="block text-gray-600">ABOUT</MyLink>
+                  <MyLink href="/aboutus/awards" className="block text-gray-600">AWARDS AND RECOGNITION</MyLink>
                 </div>
               </div>
-              <Link href="/whatwedo" className="text-gray-600">WHAT WE DO</Link>
-              <Link href="/ourteam" className="text-gray-600">OUR TEAM</Link>
-              <Link href="/news" className="text-gray-600">NEWS</Link>
-              <Link href="/careers" className="text-gray-600">CAREERS</Link>
-              <Link href="/contact" className="text-gray-600">CONTACT</Link>
+              <MyLink href="/whatwedo" className="text-gray-600">WHAT WE DO</MyLink>
+              <MyLink href="/ourteam" className="text-gray-600">OUR TEAM</MyLink>
+              <MyLink href="/news" className="text-gray-600">NEWS</MyLink>
+              <MyLink href="/careers" className="text-gray-600">CAREERS</MyLink>
+              <MyLink href="/contact" className="text-gray-600">CONTACT</MyLink>
             </div>
           </div>
         )}
