@@ -1,22 +1,9 @@
 'use client'
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import ContentManager from '../components/ContentManager';
 import { getValue } from '../utils/content';
 
-const isAuthenticated = () => {
-  // Replace this with your actual authentication logic
-  return !!localStorage.getItem('user'); // Example: check if user is logged in
-};
 
 export default function AdminDashboard({ contents }) {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push('/login'); // Redirect to login if not authenticated
-      }
-  }, []);
 
   return (
     <div className="space-y-6">
