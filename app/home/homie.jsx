@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
-import { FaBalanceScale, FaBuilding, FaHandshake, FaGavel, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
 import { assets } from "../assets/assets";
 import { useState, useEffect } from 'react';
 import GoogleReviews from '../components/GoogleReviews';
@@ -118,23 +118,7 @@ export default function Homie({ contents }) {
     link: `/whatwedo/${content.key.toLowerCase().replace('whatwedotitle', '')}`
   }));
 
-  const awards = [
-    {
-      year: "2023",
-      title: "Top Law Firm of the Year",
-      organization: "Legal Excellence Awards"
-    },
-    {
-      year: "2022",
-      title: "Best Corporate Law Practice",
-      organization: "Business Law Review"
-    },
-    {
-      year: "2021",
-      title: "Innovation in Legal Services",
-      organization: "Legal Technology Awards"
-    }
-  ];
+  
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const slidesPerView = 3; // Changed from 4 to 3
@@ -162,6 +146,25 @@ export default function Homie({ contents }) {
     }
     return value.toString() + '+'; // Return as is for smaller numbers with a plus sign
   };
+
+  const [awards, setAwards] = useState([]);
+
+  useEffect(() => {
+    const fetchAwards = async () => {
+      try {
+        const response = await fetch('/admin/awards/list');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setAwards(data); // Assuming the response is an array of awards
+      } catch (error) {
+        console.error('Error fetching awards:', error);
+      }
+    };
+
+    fetchAwards();
+  }, []); // Empty dependency array to run only on mount
 
   return (
     <main className="bg-white">
@@ -295,12 +298,14 @@ export default function Homie({ contents }) {
                 key={index}
                 className="border border-gray-200 p-6 rounded-lg hover:border-blue-400 transition-colors"
               >
-                <div className="text-blue-600 font-semibold mb-2">{award.year}</div>
+                {award.image && (
+                  <Image src={award.image} alt={award.title} className="mb-4" />
+                )}
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {award.title}
+                  {award.title} ({award.type})
                 </h3>
                 <p className="text-gray-600">
-                  {award.organization}
+                  {award.description}
                 </p>
               </div>
             ))}

@@ -2,22 +2,7 @@ import Link from 'next/link'
 import { FaArrowLeft } from 'react-icons/fa'
 import { supabase } from '../../../lib/supabaseClient'
 
-const newsData = {
-  'quantum-law-2024-awards': {
-    type: 'News',
-    title: 'Quantum Law Group Recognised in 2024 Legal Awards',
-    date: '21/03/2024',
-    content: [
-      "Quantum Law Group has been recognized for excellence in multiple categories at the 2024 Legal Awards.",
-      "The firm received awards in the following categories:",
-      "• Boutique Law Firm of the Year",
-      "• Excellence in Dispute Resolution",
-      "• Innovation in Legal Services"
-    ],
-    relatedTopics: ['Awards', 'Legal Industry', 'Recognition']
-  },
-  // Add more articles...
-}
+
 
 export default async function NewsArticle({ params }) {
   const { data: article, error } = await supabase
@@ -51,17 +36,7 @@ export default async function NewsArticle({ params }) {
           {article.content}
         </div>
 
-        {/* Related Topics */}
-        <div className="mt-12 pt-8 border-t">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Related Topics</h2>
-          <div className="flex flex-wrap gap-2">
-            {article.tags.map((topic, index) => (
-              <span key={index} className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
-                {topic}
-              </span>
-            ))}
-          </div>
-        </div>
+        
       </article>
     </main>
   )

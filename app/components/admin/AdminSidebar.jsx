@@ -11,7 +11,7 @@ export default function AdminSidebar() {
     { href: '/admin/whatwedo', label: 'What We Do' },
     { href: '/admin/team/list', label: 'Team' },
     { href: '/admin/news', label: 'News' },
-    { href: '/admin/careers', label: 'Careers' }
+    { href: '/admin/careers/list', label: 'Careers' }
   ]
 
   return (
