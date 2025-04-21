@@ -1,6 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { supabase } from '../../lib/supabaseClient'
 
 const newsItems = [
   {
@@ -43,7 +44,33 @@ const categories = [
 export default function News() {
   const [activeFilter, setActiveFilter] = useState('All')
   const [activeCategory, setActiveCategory] = useState('All Services')
+  const [news, setNews] = useState([])
 
+  useEffect(() => {
+    fetchData().then(setNews)
+  }, [])
+
+  const fetchData = async () => {
+    const { data: news, error } = await supabase
+      .from("news")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    return news;
+  }
+
+  
+  const filteredNews = news.filter((item) => {
+    if (activeCategory === 'All Services') return true
+    if (activeCategory === 'Dispute Resolution') return item.category === 'Dispute Resolution'
+    if (activeCategory === 'Commercial Property') return item.category === 'Commercial Property'
+    if (activeCategory === 'Corporate Law') return item.category === 'Corporate Law'
+    if (activeCategory === 'Construction Law') return item.category === 'Construction Law'
+    if (activeCategory === 'Family Law') return item.category === 'Family Law'
+    if (activeCategory === 'Criminal Law') return item.category === 'Criminal Law'
+    if (activeCategory === 'Taxation') return item.category === 'Taxation'
+  })
+  
   return (
     <main className="bg-white pt-32">
       {/* Hero Section */}
@@ -91,31 +118,24 @@ export default function News() {
       {/* News Grid */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-20">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newsItems.map((item, index) => (
+          {filteredNews.map((item, index) => (
             <Link
               key={index}
-              href={`/news/${item.slug}`}
+              href={`/news/${item.id}`}
               className="group block bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
             >
               <div className="p-6">
-                <div className="text-sm text-blue-600 mb-2">{item.type}</div>
+                <div className="text-sm text-blue-600 mb-2">{item.category}</div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
                   {item.title}
                 </h3>
-                <div className="text-sm text-gray-500 mb-3">{item.date}</div>
-                <p className="text-gray-600">{item.excerpt}</p>
+                <div className="text-sm text-gray-500 mb-3">{new Date(item.date).toLocaleDateString()}</div>
+                <p className="text-gray-600">{item.content}</p>
                 <div className="mt-4 text-blue-600 font-medium">Read more →</div>
               </div>
             </Link>
           ))}
         </div>
-      </section>
-
-      {/* Load More Button */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 mb-20 text-center">
-        <button className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors">
-          Load More
-        </button>
       </section>
     </main>
   )

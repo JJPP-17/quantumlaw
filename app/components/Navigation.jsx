@@ -42,12 +42,12 @@ export default function Navigation() {
                   >
                     ABOUT
                   </MyLink>
-                  <Link 
+                  <MyLink 
                     href="/aboutus/awards" 
                     className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-blue-400"
                   >
                     AWARDS AND RECOGNITION
-                  </Link>
+                  </MyLink>
                 </div>
               )}
             </div>
