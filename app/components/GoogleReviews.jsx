@@ -14,7 +14,7 @@ export default function GoogleReviews() {
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-2">
       <script src="https://static.elfsight.com/platform/platform.js" async></script>
-      <div class="elfsight-app-24dfc61b-045a-447f-89ce-0158c722fa53" data-elfsight-app-lazy></div>
+      <div className="elfsight-app-24dfc61b-045a-447f-89ce-0158c722fa53" data-elfsight-app-lazy></div>
       </div>
     </section>
   );

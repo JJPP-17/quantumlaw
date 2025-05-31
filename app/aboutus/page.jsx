@@ -1,7 +1,12 @@
-import Image from 'next/image';
-import { assets } from '../assets/assets';
 
-export default function About() {
+import { getValue } from '../utils/content';
+import { getContents } from '../actions/content';
+
+export default async function About() {
+  const {data: contents} = await getContents();
+
+  console.log(contents);
+
   return (
     <main className="bg-white pt-32">
       {/* Hero Section */}
@@ -27,7 +32,7 @@ export default function About() {
             </p>
 
             <p className="text-gray-600 leading-relaxed mb-6 text-center">
-              In the last 3 years, our achievements have been highly recognised, our firm and our lawyers have won or been listed for around <span className="font-bold text-blue-600">98+</span> legal industry awards.
+              In the last 3 years, our achievements have been highly recognised, our firm and our lawyers have won or been listed for around <span className="font-bold text-blue-600">102+</span> legal industry awards.
             </p>
           </div>
       </section>
@@ -115,12 +120,12 @@ export default function About() {
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-16">
         <h2 className="text-2xl font-bold text-blue-500 mb-5">Our Vision</h2>
         <p className="text-gray-600 leading-relaxed mb-6">
-          Quantum Law Group is committed to providing the highest quality legal services to our clients.
+          {getValue('visionText', contents)}
         </p>
 
         <h2 className="text-2xl font-bold text-blue-500 mb-5">Our Mission</h2>
         <p className="text-gray-600 leading-relaxed mb-6">
-          Quantum Law Group is committed to providing the highest quality legal services to our clients.
+          {getValue('missionText', contents)}
         </p>
       </section>
 

@@ -6,7 +6,8 @@ export default function AdminSidebar() {
   const pathname = usePathname()
 
   const menuItems = [
-    { href: '/admin', label: 'Dashboard' },
+    { href: '/admin/dashboard', label: 'Update Content' },
+    { href: '/admin', label: 'About Us' },
     { href: '/admin/awards/list', label: 'Awards' },
     { href: '/admin/whatwedo', label: 'What We Do' },
     { href: '/admin/team/list', label: 'Team' },

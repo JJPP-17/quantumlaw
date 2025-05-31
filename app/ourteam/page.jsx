@@ -46,38 +46,40 @@ export default function OurTeam() {
 
       {/* Team Grid */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {teamMembers.map((member) => (
-            member && member.membername ? (
-            <Link 
-              key={member.id}
-              href={`/ourteam/${member.membername}`}
-              className="group block hover:shadow-lg transition-shadow rounded-lg overflow-hidden"
-            >
-              {/* Image Container */}
-              <div className="relative aspect-[3/4] mb-4 overflow-hidden">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/quantimages/${member.id}/${member.filename}`}
-                  alt={member.membername}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
+  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+    {teamMembers
+      .filter((member) => member && member.membername) // Ensure valid members
+      .sort((a, b) => a.ranking - b.ranking) // Sort ascending by rank
+      .map((member) => (
+        <Link
+          key={member.id}
+          href={`/ourteam/${member.membername}`}
+          className="group block hover:shadow-lg transition-shadow rounded-lg overflow-hidden"
+        >
+          {/* Image Container */}
+          <div className="relative aspect-[3/4] mb-4 overflow-hidden">
+            <Image
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/quantimages/${member.id}/${member.filename}`}
+              alt={member.membername}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
 
-              {/* Text Content */}
-              <div className="p-4">
-                <h2 className="text-xl font-semibold text-gray-900 mb-1">
-                  {member.membername}
-                </h2>
-                <p className="text-blue-600 font-medium mb-2">
-                  {member.position}
-                </p>
-              </div>
-            </Link>
-          ) : null
-          ))}
-        </div>
-      </section>
+          {/* Text Content */}
+          <div className="p-4">
+            <h2 className="text-xl font-semibold text-gray-900 mb-1">
+              {member.membername}
+            </h2>
+            <p className="text-blue-600 font-medium mb-2">
+              {member.position}
+            </p>
+          </div>
+        </Link>
+      ))}
+  </div>
+</section>
+
     </main>
   );
 } 

@@ -7,6 +7,7 @@ import { supabase } from "../../lib/supabaseClient";
 export interface QuantTeam {
     id?: number;
     name: string;
+    ranking: string;
     position: string;
     description: string;
     expertise: string;

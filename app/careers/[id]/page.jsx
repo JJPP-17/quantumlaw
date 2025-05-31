@@ -78,8 +78,8 @@ export default async function JobPosting({ params }) {
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             How to Apply
           </h1>
-          <ul className="list-disc list-inside text-gray-600 space-y-2">
-              <li>{careers.howtoapply}</li>
+          <ul className="list-disc list-inside text-gray-600 space-y-5">
+              <li className='list-none'>{careers.howtoapply}</li>
           </ul>
         </div>
       </article>

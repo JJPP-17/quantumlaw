@@ -8,6 +8,7 @@ import Image from "next/image";
 export default function QuantTeamManager() {
   const [teamMembers, setTeamMembers] = useState<QuantTeam[]>([]);
   const [selectedMember, setSelectedMember] = useState<QuantTeam | null>(null);
+  const [ranking, setRanking] = useState<number | null>(null);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
@@ -17,6 +18,7 @@ export default function QuantTeamManager() {
   const [text, setText] = useState({
     membername: "",
     filename: "",
+    ranking: "",
     position: "",
     description: "",
     expertise: "",
@@ -24,7 +26,7 @@ export default function QuantTeamManager() {
     mobilenumber: "",
     email: "",
   });
-console.log(teamMembers)
+  console.log(teamMembers);
   useEffect(() => {
     fetchTeamMembers();
   }, []);
@@ -70,16 +72,20 @@ console.log(teamMembers)
       }
 
       // Prepare file details
-      const fileExt = file ? file.name.split(".").pop() : selectedMember?.filename.split(".").pop();
+      const fileExt = file
+        ? file.name.split(".").pop()
+        : selectedMember?.filename.split(".").pop();
       const timestamp = Date.now();
       const fileName = `${text.membername}_${timestamp}.${fileExt}`;
       const randomid = crypto.randomUUID();
-      const filePath = selectedMember ? `${selectedMember.id}/${fileName}` : `${randomid}/${fileName}`;
+      const filePath = selectedMember
+        ? `${selectedMember.id}/${fileName}`
+        : `${randomid}/${fileName}`;
 
       // Upload image
       const { error: uploadError } = await supabase.storage
         .from("quantimages")
-        .upload(filePath, file, {upsert: true});
+        .upload(filePath, file, { upsert: true });
 
       if (uploadError) throw uploadError;
 
@@ -94,6 +100,7 @@ console.log(teamMembers)
           .update({
             membername: text.membername,
             filename: file ? fileName : selectedMember.filename,
+            ranking: text.ranking,
             position: text.position,
             description: text.description,
             expertise: text.expertise,
@@ -109,6 +116,7 @@ console.log(teamMembers)
             id: randomid,
             membername: text.membername,
             filename: fileName,
+            ranking: text.ranking,
             position: text.position,
             description: text.description,
             expertise: text.expertise,
@@ -134,10 +142,14 @@ console.log(teamMembers)
   };
 
   const onChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setText({ ...text, [e.target.name]: e.target.value });
   };
+
+  console.log(text);
 
   const resetForm = () => {
     setSelectedMember(null);
@@ -145,6 +157,8 @@ console.log(teamMembers)
     setFileURL(null);
     setPreview(null);
   };
+
+  const totalMembers = teamMembers.length;
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -184,6 +198,7 @@ console.log(teamMembers)
                   );
                   setText({
                     membername: member?.membername || "",
+                    ranking: member?.ranking || "",
                     filename: member?.filename || "",
                     position: member?.position || "",
                     description: member?.description || "",
@@ -298,6 +313,39 @@ console.log(teamMembers)
               placeholder="e.g. Senior Partner"
               required
             />
+          </div>
+
+          <div>
+            <label className="block mb-2 text-gray-900 font-medium">
+              Ranking
+            </label>
+
+            {selectedMember ? (
+              <select
+                name="ranking"
+                onChange={onChangeHandler}
+                value={text.ranking && !isNaN(Number(text.ranking)) ? text.ranking : ""}
+                className="w-full p-2 border rounded text-gray-900"
+              >
+                <option value="" disabled>
+                  Select Ranking
+                </option>
+                {Array.from({ length: totalMembers }, (_, index) => (
+                  <option key={index + 1} value={index + 1}>
+                    {index + 1}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type="number"
+                name="ranking"
+                placeholder="Enter ranking"
+                onChange={onChangeHandler}
+                value={text.ranking || ""}
+                className="w-full p-2 border rounded text-gray-900"
+              />
+            )}
           </div>
 
           <div>
