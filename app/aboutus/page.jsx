@@ -121,7 +121,7 @@ export default async function About() {
               
               <div className="mt-8 pt-6 border-t border-gray-100">
                 <p className="text-gray-600 italic">
-                  With a results-driven approach and a deep commitment to client care, Quantum Law Group is here to support you every step of the way.
+                  With a results-driven approach and a deep commitment to client care, Quantum Law Group is here to support you every step.
                 </p>
               </div>
             </div>

@@ -56,11 +56,9 @@ export default function CareersTable() {
 
       if (error) throw error;
 
-      setCareers(prev =>
-        prev.map(career =>
-          career.id === id ? { ...career, status: newStatus } : career
-        )
-      );
+      setCareers(careers.map(career =>
+        career.id === id ? { ...career, status: newStatus } : career
+      ));
     } catch (error) {
       console.error('Error updating status:', error);
     }
@@ -94,12 +92,14 @@ export default function CareersTable() {
                 <td className="px-6 py-4 text-sm text-gray-900 max-w-xs line-clamp-3">{career.howtoapply}</td>
                 <td className="px-6 py-4">
                   <select
-                    value={career.status || 'open'}
-                    onChange={(e) => handleStatusChange(career.status, e.target.value)}
-                    className="text-sm border rounded px-2 py-1 text-green-600"
+                    value={career.status || 'Open'}
+                    onChange={(e) => handleStatusChange(career.id, e.target.value)}
+                    className={`text-sm border rounded px-2 py-1 ${
+                      career.status === 'Closed' ? 'text-red-600' : 'text-green-600'
+                    }`}
                   >
-                    <option value="open">Open</option>
-                    <option value="closed">Closed</option>
+                    <option value="Open">Open</option>
+                    <option value="Closed">Closed</option>
                   </select>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
