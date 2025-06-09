@@ -36,7 +36,7 @@ export default function QuantumCareers() {
     })))
   }
 
-
+  console.log('selectedCareers', selectedCareers);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -69,7 +69,6 @@ export default function QuantumCareers() {
         if (dbError) throw dbError;
       }
 
-      alert("Yay! Your upload is successful");
       resetForm();
       window.location.reload();
     } catch (error) {
@@ -79,6 +78,7 @@ export default function QuantumCareers() {
       setIsLoading(false);
     }
   };
+
 
   const onChangeHandler = (e) => {
     setText({ ...text, [e.target.name]: e.target.value });
@@ -120,7 +120,7 @@ export default function QuantumCareers() {
                             const career = careers.find(
                                 (c) => c.position === e.target.value 
                             );
-                            setSelectedCareers(careers || null);
+                            setSelectedCareers(career || null);
                             
                         setText({
                             position: career.position,

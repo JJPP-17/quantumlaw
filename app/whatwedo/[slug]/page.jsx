@@ -170,7 +170,7 @@ export default async function PracticeArea({ params }) {
         <section className="max-w-7xl mx-auto px-4 md:px-8 mb-20">
           <div className="max-w-4xl">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              Our Services:
+              Key Services:
             </h2>
             <div className="rounded-lg space-y-6">
               <div className="prose max-w-none text-lg">

@@ -201,15 +201,15 @@ export default function Homie({ contents }) {
 
   return (
     <main className="bg-white">
-      {/* Hero Section */}
-      <section className="relative min-h-[95vh] flex items-center bg-gradient-to-r from-gray-50 to-white pt-30">
+      {/* Hero Section - reduced height and spacing */}
+      <section className="relative min-h-[85vh] flex items-center bg-gradient-to-b from-white to-white pt-30">
         {/* Content Container */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 w-full">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             {/* Text Content */}
             <div className="max-w-2xl">
               <div className="space-y-6 animate-fadeIn">
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mt-15">
                   We handle difficult and
                   <span className="text-blue-600"> high stakes cases</span>
                 </h1>
@@ -221,7 +221,7 @@ export default function Homie({ contents }) {
                   <Link
                     href="https://calendly.com/quantumlaw/strategyconsult?month=2025-03"
                     target="_blank"
-                    className="inline-block bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
+                    className="inline-block bg-blue-600 text-white px-6 py-2 rounded-4xl hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
                   >
                     Schedule a Consultation
                   </Link>
@@ -268,52 +268,55 @@ export default function Homie({ contents }) {
         </div>
       </section>
 
-      {/* Practice Areas */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      {/* Practice Areas Section - adjusted spacing and typography */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 via-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
               Our Practice Areas
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              We offer comprehensive legal services across multiple practice
-              areas, delivering tailored solutions to meet your specific needs.
+            <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Comprehensive legal solutions tailored to meet your specific needs, delivered with expertise and dedication.
             </p>
           </div>
 
-          {/* Horizontal Scrollable Menu */}
+          {/* Practice Areas Cards - adjusted spacing and typography */}
           <div className="relative">
-            <div className="overflow-x-auto pb-6 hide-scrollbar">
+            <div className="overflow-x-auto hide-scrollbar">
               <div className="flex gap-6 min-w-max px-4">
                 {practiceAreas.map((area, index) => (
-                  <div key={index} className="w-[300px]">
+                  <div key={index} className="w-[320px]">
                     <Link
                       href={area.link}
-                      className="group bg-white p-4 rounded-md border-2 border-gray-200
-                        hover:border-blue-500 hover:shadow-lg transition-all duration-300 
-                        block h-full"
+                      className="group bg-white p-6 rounded-xl border border-gray-100 hover:border-blue-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 block h-full relative overflow-hidden"
                     >
-                      <div className="space-y-3">
-                        <h3
-                          className="text-base font-bold text-gray-900 text-center 
-                          group-hover:text-blue-600 transition-colors duration-300"
-                        >
+                      {/* Decorative background elements */}
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 opacity-0 rounded-full transform translate-x-1/2 -translate-y-1/2 group-hover:opacity-20 transition-all duration-500"></div>
+                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-indigo-50 opacity-0 rounded-full transform -translate-x-1/2 translate-y-1/2 group-hover:opacity-20 transition-all duration-500"></div>
+
+                      <div className="relative space-y-3">
+                        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
                           {area.title}
                         </h3>
-                        <div
-                          className="h-[2px] w-12 bg-blue-500 mx-auto opacity-0 
-                          group-hover:opacity-100 transition-opacity duration-300"
-                        ></div>
-                        <p className="text-gray-600 text-center text-sm leading-relaxed line-clamp-2">
+                        
+                        <div className="h-0.5 w-12 bg-gradient-to-r from-blue-500 to-indigo-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                        
+                        <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">
                           {area.description}
                         </p>
-                        <div
-                          className="flex justify-center opacity-0 
-                          group-hover:opacity-100 transition-opacity duration-300"
-                        >
-                          <span className="text-blue-600 text-sm font-medium">
-                            Learn More →
+
+                        <div className="flex items-center text-blue-600 pt-3">
+                          <span className="text-sm font-medium group-hover:text-blue-700 transition-colors duration-300">
+                            Learn More
                           </span>
+                          <svg 
+                            className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform duration-300" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
                         </div>
                       </div>
                     </Link>
@@ -325,20 +328,20 @@ export default function Homie({ contents }) {
         </div>
       </section>
 
-      {/* Careers Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Careers Section - adjusted spacing */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
             Join Our Team
           </h2>
-          <p className="text-lg text-gray-700 mb-8">
-            We’re always on the lookout for talented, passionate individuals who
+          <p className="text-base text-gray-700 mb-6">
+            We're always on the lookout for talented, passionate individuals who
             want to make a difference. If you're interested in working with us,
-            we’d love to hear from you.
+            we'd love to hear from you.
           </p>
           <a
             href="/careers"
-            className="inline-block px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-700 text-white text-sm font-medium rounded-4xl shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out"
+            className="inline-block px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-700 text-white text-sm font-medium rounded- shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out"
           >
             View Open Positions
           </a>
@@ -348,27 +351,27 @@ export default function Homie({ contents }) {
       {/* Add Google Reviews Section before Contact Section */}
       <GoogleReviews />
 
-      {/* Contact Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      {/* Contact Section - adjusted spacing */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
               GET IN TOUCH
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-base text-gray-600 mb-6">
               Schedule a consultation with our experienced legal team today
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+                className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-2 rounded-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
               >
                 Contact Us
               </Link>
               <Link
                 href="https://calendly.com/quantumlaw/strategyconsult?month=2025-03"
                 target="_blank"
-                className="inline-flex items-center justify-center border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-md hover:bg-blue-50 transition-all duration-300 w-full sm:w-auto"
+                className="inline-flex items-center justify-center border-2 border-blue-600 text-blue-600 px-8 py-2 rounded-md hover:bg-blue-50 transition-all duration-300 w-full sm:w-auto"
               >
                 Schedule Consultation
               </Link>
@@ -419,6 +422,17 @@ export default function Homie({ contents }) {
           </div>
         </div>
       </section>
+
+      {/* Update the color scheme for the rest of the page */}
+      <style jsx global>{`
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </main>
   );
 }

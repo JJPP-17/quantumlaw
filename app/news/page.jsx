@@ -48,7 +48,7 @@ export default function News() {
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-12">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-          Quantum Law News
+          NEWS & ARTICLES
         </h1>
       </section>
 

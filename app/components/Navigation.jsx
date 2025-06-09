@@ -16,7 +16,7 @@ export default function Navigation() {
       <nav className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex justify-between items-center h-20">
           <MyLink href="/" className="text-2xl font-bold text-gray-900">
-            <Image src={assets.logo} alt="Quantum Law Logo" width={200} height={200} />
+            <Image src={assets.logo} alt="Quantum Law Logo" width={180} height={180} />
           </MyLink>
 
           <div className="hidden md:flex space-x-8 text-md sm:text-base">
@@ -67,7 +67,6 @@ export default function Navigation() {
             <MyLink href="/contact" className="text-gray-600 hover:text-blue-400">
               CONTACT
             </MyLink>
-            <AiOutlineSearch className="text-gray-600 hover:text-blue-400 h-6 w-6 cursor-pointer" />
           </div>
 
           <button 
