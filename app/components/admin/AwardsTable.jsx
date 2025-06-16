@@ -5,8 +5,7 @@ import { supabase } from '../../../lib/supabaseClient';
 import Image from 'next/image';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
-
-export default function AwardsTable() {
+export default function AwardsTable({}) {
   const [awards, setAwards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -40,10 +39,9 @@ export default function AwardsTable() {
         .eq('id', id);
 
       if (error) throw error;
-      
       setAwards(awards.filter(award => award.id !== id));
     } catch (error) {
-      console.error('Error deleting team member:', error);
+      console.error('Error deleting award:', error);
     }
   }
 
@@ -51,28 +49,28 @@ export default function AwardsTable() {
     return <div className="text-center py-4 text-gray-600">Loading...</div>;
   }
 
+  const handleEdit = (award) => {
+    setSelectedAward(award);
+    setPreview(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/quantimages/${award.id}/${award.filename}`);
+    setText({
+      awardsname: award.awardsname,
+      filename: award.filename,
+      description: award.description,
+      awardsyear: award.awardsyear,
+      awardstype: award.awardstype,
+    });
+  };
+
   return (
     <div className="overflow-x-auto bg-white rounded-lg shadow">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
-            
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Image
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Award Name
-            </th>
-        
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Award Type
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Award Description
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Actions
-            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Award Name</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Award Type</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Award Description</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -90,22 +88,14 @@ export default function AwardsTable() {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">
-                    {award.awardsname}
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {award.awardsyear}
-                  </div>
+                  <div className="text-sm font-medium text-gray-900">{award.awardsname}</div>
+                  <div className="text-sm text-gray-500">{award.awardsyear}</div>
                 </td>
                 <td className="px-6 py-4">
-                  <div className="text-sm text-gray-900 max-w-xs line-clamp-3">
-                    {award.awardstype}
-                  </div>
+                  <div className="text-sm text-gray-900 max-w-xs line-clamp-3">{award.awardstype}</div>
                 </td>
                 <td className="px-6 py-4">
-                  <div className="text-sm text-gray-900 max-w-xs line-clamp-3">
-                    {award.description}
-                  </div>
+                  <div className="text-sm text-gray-900 max-w-xs line-clamp-3">{award.description}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <div className="flex items-center gap-3">
@@ -124,4 +114,4 @@ export default function AwardsTable() {
       </table>
     </div>
   );
-} 
+}

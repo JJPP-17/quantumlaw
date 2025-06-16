@@ -182,21 +182,23 @@ export default async function About() {
       <section className="py-20 bg-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-indigo-50 opacity-50"></div>
         <div className="relative max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
             Experience Legal Excellence
           </h2>
-          <p className="text-base md:text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+          <p className="text-sm md:text-md text-gray-600 mb-10 max-w-2xl mx-auto">
             Join the growing number of clients who trust Quantum Law Group for their most critical legal matters.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/contact"
+              href="https://calendly.com/quantumlaw/strategyconsult?month=2025-03"
+              target="_blank"
               className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             >
               Schedule a Consultation
             </Link>
             <Link
               href="/contact"
+              target="_blank"
               className="px-6 py-3 bg-white text-blue-600 text-sm font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-100"
             >
               Learn More

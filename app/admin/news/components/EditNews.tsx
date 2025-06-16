@@ -23,11 +23,9 @@ export default function EditNews({ news }: { news: NewsItem }) {
       title: text.title,
       content: text.content,
       date: text.date,
-      tags:
-        typeof text.tags === "string"
-          ? text.tags.split(",").map((tag: string) => tag.trim())
-          : text.tags,
+      previewtext: text.previewtext,
       category: text.category,
+      link: text.link,
     };
 
     const { error } = await supabase

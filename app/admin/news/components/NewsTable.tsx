@@ -22,66 +22,59 @@ export default function NewsTable({ news }: { news: NewsItem[] }) {
   };
 
   return (
-    <div className="overflow-x-auto bg-white rounded-lg shadow">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead>
-          <tr>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Title
-            </th>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Category
-            </th>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Content
-            </th>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Date
-            </th>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Tags
-            </th>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {news.map((item) => (
-            <tr key={item.id}>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {item.title}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {item.category}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 max-w-[200px] overflow-hidden text-ellipsis">
-                {item.content}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {item.date}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {item.tags.join(", ")}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex gap-2">
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
-                  onClick={() => handleEdit(item.id)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <div className="w-full overflow-x-auto bg-white rounded-lg shadow">
+  <table className="w-full table-fixed divide-y divide-gray-200">
+    <thead className="bg-gray-50">
+      <tr>
+        <th className="w-[120px] px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+        <th className="w-[100px] px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+        <th className="w-[140px] px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Preview</th>
+        <th className="w-[180px] px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Content</th>
+        <th className="w-[160px] px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Link</th>
+        <th className="w-[100px] px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+        <th className="w-[120px] px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+      </tr>
+    </thead>
+    <tbody className="bg-white divide-y divide-gray-200 text-sm text-gray-900">
+      {news.map((item) => (
+        <tr key={item.id} className="align-top">
+          <td className="px-2 py-3 break-words">{item.title}</td>
+          <td className="px-2 py-3 break-words">{item.category}</td>
+          <td className="px-2 py-3 break-words">{item.previewtext}</td>
+          <td className="px-2 py-3 break-words">{item.content}</td>
+          <td className="px-2 py-3 break-words text-blue-600">
+            {item.link ? (
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-blue-800"
+              >
+                {new URL(item.link).hostname}
+              </a>
+            ) : (
+              "-"
+            )}
+          </td>
+          <td className="px-2 py-3">{item.date}</td>
+          <td className="px-2 py-3 space-x-1">
+            <button
+              className="px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs"
+              onClick={() => handleEdit(item.id)}
+            >
+              Edit
+            </button>
+            <button
+              className="px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs"
+              onClick={() => handleDelete(item.id)}
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
   );
 }

@@ -60,6 +60,20 @@ export default function NewsForm({
 
         <div>
           <label className="block mb-2 text-gray-900 font-medium">
+            Preview Text
+          </label>
+          <input
+            type="text"
+            name="previewtext"
+            value={text.previewtext}
+            onChange={onChangeHandler}
+            placeholder="Enter preview text"
+            className="w-full p-2 border rounded text-gray-900"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-2 text-gray-900 font-medium">
             Content
           </label>
           <textarea
@@ -73,18 +87,17 @@ export default function NewsForm({
         </div>
 
         <div>
-          <label className="block mb-2 text-gray-900 font-medium">
-            Tags (comma-separated)
-          </label>
+          <label className="block mb-2 text-gray-900 font-medium">Article Link</label>
           <input
-            type="text"
-            name="tags"
-            value={text.tags}
+            type="url"
+            name="link"
+            value={text.link}
             onChange={onChangeHandler}
-            placeholder="Enter tags (e.g., legal, update, announcement)"
+            placeholder="https://example.com"
             className="w-full p-2 border rounded text-gray-900"
           />
         </div>
+
       </div>
 
       <div className="flex gap-2">

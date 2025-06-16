@@ -129,6 +129,9 @@ export default function QuanteamAward() {
     setPreview(null);
   };
 
+  console.log(selectedAward);
+  
+
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-6 text-gray-700">
@@ -159,7 +162,7 @@ export default function QuanteamAward() {
                             setSelectedAward(null);
                         } else {
                             const award = awards.find(
-                                (a) => a.awardsname === e.target.value
+                                (a) => `${a.awardsname}-${a.description}` === e.target.value
                             );
                         setSelectedAward(award || null);
                         setPreview(
@@ -179,7 +182,7 @@ export default function QuanteamAward() {
                     <option value="new">Select Existing Award</option>
                     {awards.map((award) => (
                       award && award.awardsname ? (
-                        <option key={award.id} value={award.awardsname}>
+                        <option key={award.id} value={`${award.awardsname}-${award.description}`}>
                             {award.awardsname} - {award.description} {award.awardsyear}
                         </option>
                       ) : null

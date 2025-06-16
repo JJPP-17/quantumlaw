@@ -214,14 +214,13 @@ export default function QuantumCareers() {
                     Qualification
                 </label>
                 <div className="flex gap-2">
-                    <input
-                        type="text"
+                    <textarea
                         name="qualifications"
                         defaultValue={selectedCareers?.qualifications}
                         value={text.qualifications}
                         onChange={onChangeHandler}
                         placeholder="Enter Qualifications"
-                        className="w-full p-2 border rounded text-gray-900"
+                        className="w-full p-4 border rounded text-gray-900 min-h-[150px] resize-y"
                         required
                     />
                 </div>

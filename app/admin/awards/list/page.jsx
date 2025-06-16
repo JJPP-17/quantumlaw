@@ -1,7 +1,10 @@
 import AwardsTable from '../../../components/admin/AwardsTable';
 import Link from 'next/link';
 
+
 export default function AwardsListPage() {
+  
+
   return (
     <div className="p-6">
         <div className="flex justify-between items-center mb-15">
@@ -13,7 +16,7 @@ export default function AwardsListPage() {
                 Add New Award or Update Existing Award
             </Link>
         </div>
-      <AwardsTable />
+      <AwardsTable/>
     </div>
   );
 }

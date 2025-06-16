@@ -3,7 +3,8 @@ export interface NewsItem {
   title: string;
   content: string;
   date: string;
-  tags: string[];
   created_at?: string;
   category: string;
+  previewtext: string;
+  link: string;
 }

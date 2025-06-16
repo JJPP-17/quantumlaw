@@ -11,7 +11,7 @@ export default function AddNews() {
     title: "",
     content: "",
     date: new Date().toISOString().split("T")[0],
-    tags: "",
+    previewtext: "",
     category: "",
   });
 
@@ -24,7 +24,7 @@ export default function AddNews() {
         title: text.title,
         content: text.content,
         date: text.date,
-        tags: text.tags.split(",").map((tag) => tag.trim()),
+        previewtext: text.previewtext,
       };
 
       const { error: insertError } = await supabase
@@ -53,7 +53,7 @@ export default function AddNews() {
       title: "",
       content: "",
       date: new Date().toISOString().split("T")[0],
-      tags: "",
+      previewtext: "",
       category: "",
     });
   };

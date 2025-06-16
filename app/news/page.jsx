@@ -5,6 +5,7 @@ import { supabase } from '../../lib/supabaseClient'
 
 const categories = [
   'All Services',
+  'General',
   'Dispute Resolution',
   'Commercial Property',
   'Corporate Law',
@@ -34,6 +35,7 @@ export default function News() {
   
   const filteredNews = news.filter((item) => {
     if (activeCategory === 'All Services') return true
+    if (activeCategory === 'General') return item.category === 'General'
     if (activeCategory === 'Dispute Resolution') return item.category === 'Dispute Resolution'
     if (activeCategory === 'Commercial Property') return item.category === 'Commercial Property'
     if (activeCategory === 'Corporate Law') return item.category === 'Corporate Law'
@@ -86,7 +88,7 @@ export default function News() {
                   {item.title}
                 </h3>
                 <div className="text-sm text-gray-500 mb-3">{new Date(item.date).toLocaleDateString()}</div>
-                <p className="text-gray-600">{item.content}</p>
+                <p className="text-gray-600">{item.previewtext}</p>
                 <div className="mt-4 text-blue-600 font-medium">Read more →</div>
               </div>
             </Link>

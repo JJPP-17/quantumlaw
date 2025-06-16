@@ -51,9 +51,6 @@ export default async function JobPosting({ params }) {
             {careers.position}
           </h1>
           <div className="flex gap-3">
-            <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full">
-              {careers.location}
-            </span>
             <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full">
               {careers.category}
             </span>

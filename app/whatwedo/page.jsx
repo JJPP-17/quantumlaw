@@ -64,17 +64,18 @@ export default async function WhatWeDo() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-50 to-indigo-50 py-16">
+      <section className="bg-gradient-to-r from-blue-50 to-indigo-50 py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
             Need Legal Assistance?
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-md text-gray-600 mb-8">
             Our team of experienced lawyers is ready to help you navigate your legal challenges.
           </p>
           <Link
-            href="/contact"
-            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            href="https://calendly.com/quantumlaw/strategyconsult?month=2025-03"
+            target="_blank"
+            className="text-md inline-flex items-center px-6 py-2 bg-blue-600 text-white font-medium rounded-4xl hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
             Schedule a Consultation
             <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,8 +1,6 @@
-import Link from 'next/link'
-import { FaArrowLeft } from 'react-icons/fa'
-import { supabase } from '../../../lib/supabaseClient'
-
-
+import Link from "next/link";
+import { FaArrowLeft } from "react-icons/fa";
+import { supabase } from "../../../lib/supabaseClient";
 
 export default async function NewsArticle({ params }) {
   const { data: article, error } = await supabase
@@ -15,7 +13,7 @@ export default async function NewsArticle({ params }) {
     <main className="bg-white pt-32">
       {/* Back Button */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 mb-8">
-        <Link 
+        <Link
           href="/news"
           className="inline-flex items-center text-blue-600 hover:text-blue-800"
         >
@@ -30,14 +28,29 @@ export default async function NewsArticle({ params }) {
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           {article.title}
         </h1>
-        <div className="text-gray-500 mb-8">{new Date(article.date).toLocaleDateString()}</div>
-        
-        <div className="prose prose-lg max-w-none text-gray-600 whitespace-pre-wrap">
+        <div className="text-gray-500 mb-8">
+          {new Date(article.date).toLocaleDateString()}
+        </div>
+
+        <div className="prose prose-lg max-w-none text-gray-600 whitespace-pre-wrap mb-6">
           {article.content}
         </div>
 
-        
+        {/* External Link */}
+        {article.link && (
+          <p className="mt-6 text-blue-600">
+            Read Full Article:{" "}
+            <a
+              href={article.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-500"
+            >
+              {new URL(article.link).hostname}
+            </a>
+          </p>
+        )}
       </article>
     </main>
-  )
-} 
+  );
+}

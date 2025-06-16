@@ -43,6 +43,12 @@ export default function Navigation() {
                     ABOUT
                   </MyLink>
                   <MyLink 
+                    href="/howweoperate" 
+                    className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-blue-400"
+                  >
+                    HOW WE OPERATE
+                  </MyLink>
+                  <MyLink 
                     href="/aboutus/awards" 
                     className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-blue-400"
                   >

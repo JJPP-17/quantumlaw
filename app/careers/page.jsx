@@ -56,8 +56,8 @@ export default function Careers() {
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Join Our Team
             </h1>
-            <div className="h-1 w-20 bg-blue-600 mx-auto mb-8"></div>
-            <p className="text-md text-gray-600 mb-8">
+            <div className="h-1 w-20 bg-blue-600 mx-auto mb-5"></div>
+            <p className="text-md text-gray-600 mb-4">
               At Quantum Law Group, we are committed to working with you to
               achieve your personal developmental and career goals, while ensuring
               that our clients are provided with access to highly qualified and
@@ -111,7 +111,7 @@ export default function Careers() {
                     <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
                       {job.position}
                     </h3>
-                    <p className="text-gray-500 mt-1 text-sm">Posted: {new Date().toLocaleDateString()}</p>
+                    <p className="text-gray-500 mt-1 text-sm">Posted: {new Date(job.created_at).toLocaleDateString()}</p>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <span className="px-3 py-1 bg-green-50 text-green-600 rounded-full text-sm font-medium">
@@ -141,9 +141,9 @@ export default function Careers() {
       </section>
 
       {/* Contact Section with gradient background */}
-      <section className="bg-gradient-to-b from-gray-50 to-gray-100 py-20">
+      <section className="bg-gradient-to-b from-gray-50 to-gray-100 py-10">
         <div className="max-w-3xl mx-auto px-4 md:px-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
             Want to discuss opportunities?
           </h2>
           <p className="text-md text-gray-600 mb-8">
@@ -151,8 +151,9 @@ export default function Careers() {
             <br/> Let's start a conversation about your future with us.
           </p>
           <Link
-            href="mailto:hr@quantumlaw.com.au"
-            className="inline-flex items-center px-8 py-2 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+            href="/contact"
+            target="_blank"
+            className="inline-flex items-center px-6 py-2 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
           >
             Contact Us
           </Link>
