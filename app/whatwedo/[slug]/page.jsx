@@ -2,6 +2,17 @@ import Link from 'next/link'
 import { FaArrowLeft } from 'react-icons/fa'
 import { getContents } from '../../actions/content';
 
+export const generateMetadata = ({ params }) => {
+  const rawTitle = params.slug?.replace('-', ' ') || 'Page';
+  const capitalisedTitle = rawTitle.charAt(0).toUpperCase() + rawTitle.slice(1);
+
+  return {
+    title: `${capitalisedTitle} Law - Quantum Law Group`,
+    description: `Learn more about ${capitalisedTitle} at Quantum Law Group`,
+  }
+}
+
+
 const RichTextRenderer = ({ content }) => {
   if (!content) return null;
 
@@ -66,7 +77,7 @@ const RichTextRenderer = ({ content }) => {
       {result.map((block, index) => {
         if (block.type === 'paragraph') {
           return (
-            <p key={index} className="text-gray-700 text-lg">
+            <p key={index} className="text-gray-700 text-md">
               {block.content}
             </p>
           );
@@ -157,7 +168,7 @@ export default async function PracticeArea({ params }) {
 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-16">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
           {titleContent.value}
         </h1>
         <p className="text-base text-gray-600 pt-5">
@@ -169,11 +180,11 @@ export default async function PracticeArea({ params }) {
       {ourservicesDescription && (
         <section className="max-w-7xl mx-auto px-4 md:px-8 mb-20">
           <div className="max-w-4xl">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              Key Services:
+            <h2 className="text-xl font-bold text-gray-900 mb-6">
+              Key Services & Achievements:
             </h2>
             <div className="rounded-lg space-y-6">
-              <div className="prose max-w-none text-lg">
+              <div className="prose max-w-none text-md">
                 <RichTextRenderer content={ourservicesDescription.description} />
               </div>
             </div>

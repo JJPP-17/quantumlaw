@@ -1,5 +1,12 @@
 import React from 'react'
 
+export const generateMetadata = () => {
+  return {
+    title: 'Terms of Service - Quantum Law Group',
+    description: 'Learn more about terms of service at Quantum Law Group',
+  }
+}
+
 export default function TermsOfUse() {
   return (
     <main className="bg-white pt-32 pb-20">

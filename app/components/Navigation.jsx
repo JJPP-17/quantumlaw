@@ -1,9 +1,7 @@
 'use client'
-import Link from 'next/link'
 import { useState } from 'react'
 import Image from 'next/image'
 import { assets } from '../assets/assets'
-import { AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import MyLink from './MyLink';

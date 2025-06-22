@@ -1,4 +1,11 @@
-"use client";
+
+
+export const generateMetadata = () => {
+    return {
+      title: 'How We Operate - Quantum Law Group',
+      description: 'Learn more about how we operate and values at Quantum Law Group',
+    }
+  }
 
 export default function HowWeOperate() {
   return (

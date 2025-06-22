@@ -1,6 +1,12 @@
 import Link from 'next/link'
-import { FaGavel, FaBuilding, FaBalanceScale, FaHardHat, FaFileInvoiceDollar, FaHeart, FaCalculator } from 'react-icons/fa'
 import { getContents } from '../actions/content';
+
+export const generateMetadata = () => {
+  return {
+    title: 'What We Do - Quantum Law Group',
+    description: 'Learn more about what we do at Quantum Law Group',
+  }
+}
 
 export default async function WhatWeDo() {
     const { data: contents = [] } = await getContents();

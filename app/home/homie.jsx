@@ -7,6 +7,13 @@ import { useState, useEffect } from "react";
 import GoogleReviews from "../components/GoogleReviews";
 import { getValue } from "../utils/content";
 
+export const generateMetadata = () => {
+  return {
+    title: 'Home - Quantum Law Group',
+    description: 'Learn more about our team and values at Quantum Law Group',
+  }
+}
+
 export default function Homie({ contents }) {
   useEffect(() => {
     // BIG HACK TO REMOVE THE FREE GOOGLE REVIEWS WIDGET

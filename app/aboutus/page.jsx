@@ -1,7 +1,13 @@
 import { getValue } from "../utils/content";
 import { getContents } from "../actions/content";
-import Image from "next/image";
 import Link from "next/link";
+
+export const generateMetadata = () => {
+  return {
+    title: 'About Us - Quantum Law Group',
+    description: 'Learn more about our team and values at Quantum Law Group',
+  }
+}
 
 export default async function About() {
   const { data: contents } = await getContents();

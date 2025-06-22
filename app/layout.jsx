@@ -6,15 +6,15 @@ import ConditionalHeader from './components/ConditionHeader'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'Quantum Law Group',
-  description: 'Modern Legal Solutions',
+export const generateMetadata = () => {
+  return {
+    title: 'Quantum Law Group',
+    description: 'Learn more about our team and values at Quantum Law Group',
+  }
 }
 
+
 export default function RootLayout({children}) {
- 
-  
-  
 
   return (
     <html lang="en">

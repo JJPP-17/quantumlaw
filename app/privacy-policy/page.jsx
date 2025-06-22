@@ -1,5 +1,12 @@
 import React from 'react'
 
+export const generateMetadata = () => {
+  return {
+    title: 'Privacy Policy - Quantum Law Group',
+    description: 'Learn more about privacy policy at Quantum Law Group',
+  }
+}
+
 export default function PrivacyPolicy() {
   return (
     <main className="bg-white pt-32 pb-20">
