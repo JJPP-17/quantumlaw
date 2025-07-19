@@ -1,15 +1,9 @@
 import HomePage from './home/page';
-<<<<<<< HEAD
-=======
 import Head from 'next/head';
->>>>>>> f59dd2f (update Analytics)
-
 export default function Home() {
   return (
     <>
-<<<<<<< HEAD
-=======
-      <Head>
+      <Head>:
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-KZ1WBWYXWB"></script>
         <script dangerouslySetInnerHTML={{
@@ -21,7 +15,6 @@ export default function Home() {
           `,
         }} />
       </Head>
->>>>>>> f59dd2f (update Analytics)
       <HomePage />
     </>
   )
