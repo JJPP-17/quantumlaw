@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> f59dd2f (update Analytics)
 import { getContents } from '../../actions/content'
 import { getValue } from '../../utils/content'
 import AwardsClient from './awardsClient'
