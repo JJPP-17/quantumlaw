@@ -8,6 +8,7 @@ import MyLink from './MyLink';
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false)
+  const [isAIDropdownOpen, setIsAIDropdownOpen] = useState(false)
 
   return (
     <header className="fixed w-full bg-white border-b border-gray-100 z-50">
@@ -65,6 +66,8 @@ export default function Navigation() {
             <MyLink href="/news" className="text-gray-600 hover:text-blue-400">
               NEWS
             </MyLink>
+            
+            
             <MyLink href="/careers" className="text-gray-600 hover:text-blue-400">
               CAREERS
             </MyLink>
@@ -98,6 +101,13 @@ export default function Navigation() {
               <MyLink href="/whatwedo" className="text-gray-600">WHAT WE DO</MyLink>
               <MyLink href="/ourteam" className="text-gray-600">OUR TEAM</MyLink>
               <MyLink href="/news" className="text-gray-600">NEWS</MyLink>
+              <div className="space-y-2">
+                <div className="text-gray-600 px-2">AI TOOLS</div>
+                <div className="pl-4 space-y-2">
+                  <MyLink href="/ai-assessment" className="block text-gray-600">Case Assessment</MyLink>
+                  <MyLink href="/ai-content" className="block text-gray-600">Content Generator</MyLink>
+                </div>
+              </div>
               <MyLink href="/careers" className="text-gray-600">CAREERS</MyLink>
               <MyLink href="/contact" className="text-gray-600">CONTACT</MyLink>
             </div>
