@@ -15,6 +15,7 @@ export default async function ContactMainPage() {
   
 
   return (
+    // Test
     <Contact contents={contents}/>
   )
 }
