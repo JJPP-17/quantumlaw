@@ -1,5 +1,7 @@
 import React from 'react'
-import Contact from './Contact'
+import Contact from './contact'
+import { getContents } from "../actions/content";
+
 
 export const generateMetadata = () => {
   return {
@@ -8,10 +10,12 @@ export const generateMetadata = () => {
   }
 }
 
-const ContactMainPage = () => {
+export default async function ContactMainPage() {
+  const { data: contents } = await getContents();
+  
+
   return (
-    <Contact/>
+    <Contact contents={contents}/>
   )
 }
 
-export default ContactMainPage

@@ -4,9 +4,12 @@ import { GoLaw } from 'react-icons/go'
 import Link from 'next/link'
 import { useForm, ValidationError } from '@formspree/react'
 import { FaArrowLeft } from 'react-icons/fa'
+import { getValue } from "../utils/content";
 
-export default function Contact() {
-  const [state, handleSubmit] = useForm("myzeprbo");
+
+export default function Contact({contents}) {
+  const [state, handleSubmit] = useForm("xblkozng");
+
 
   if (state.succeeded) {
     return (
@@ -92,8 +95,7 @@ export default function Contact() {
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">Our Office</h3>
                     <p className="text-gray-600 mt-1">
-                      Suite 1503, Level 15, 447 Kent Street<br />
-                      Sydney NSW 2000
+                      {getValue('addressQuant', contents)}
                     </p>
                   </div>
                 </div>
@@ -109,7 +111,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">Phone</h3>
-                    <p className="text-gray-600 mt-1">+61 2 9188 8866</p>
+                    <p className="text-gray-600 mt-1">{getValue('phoneQuant', contents)}</p>
                   </div>
                 </div>
               </div>
@@ -122,9 +124,7 @@ export default function Contact() {
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">Email</h3>
                     <div className="space-y-2 mt-2">
-                      <p className="text-gray-600">General: info@quantumlaw.com.au</p>
-                      <p className="text-gray-600">Careers: hr@quantumlaw.com.au</p>
-                      <p className="text-gray-600">Billing: accounts@quantumlaw.com.au</p>
+                      <p className="text-gray-600">{getValue('emailQuant', contents)}</p>
                     </div>
                   </div>
                 </div>
