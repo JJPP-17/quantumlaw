@@ -7,7 +7,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { getValue } from "../utils/content";
 
 
-export default function changeContact({contents}) {
+export default function ChangeContact({contents}) {
   const [state, handleSubmit] = useForm("xblkozng");
 
 

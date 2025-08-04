@@ -1,5 +1,5 @@
 import React from 'react'
-import changeContact from './changeContact';
+import ChangeContact from './changeContact'
 import { getContents } from "../actions/content";
 
 
@@ -16,7 +16,7 @@ export default async function ContactMainPage() {
 
   return (
     // Test
-    <changeContact contents={contents}/>
+    <ChangeContact contents={contents}/>
   )
 }
 
