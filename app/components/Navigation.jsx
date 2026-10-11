@@ -20,6 +20,6 @@ export default function Navigation() {
       <Link className="nav-contact" href="/contact">Contact us <Arrow diagonal /></Link>
       <button className="nav-toggle" type="button" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen(!open)}><span className={open ? "is-open" : ""} /><span className={open ? "is-open" : ""} /></button>
     </div>
-    {open && <nav className="mobile-menu" id="mobile-menu" aria-label="Mobile navigation"><div className="site-container">{[...links,{href:"/howweoperate",label:"Our approach"},{href:"/aboutus/awards",label:"Recognition"},{href:"/careers",label:"Careers"},{href:"/contact",label:"Contact us"}].map(link=><Link href={link.href} key={link.href} onClick={()=>setOpen(false)}>{link.label}<Arrow diagonal /></Link>)}<a className="mobile-phone" href="tel:+61280678726">(02) 8067 8726</a></div></nav>}
+    {open && <nav className="mobile-menu" id="mobile-menu" aria-label="Mobile navigation"><div className="site-container">{[...links,{href:"/howweoperate",label:"Our approach"},{href:"/aboutus/awards",label:"Recognition"},{href:"/contact",label:"Contact us"}].map(link=><Link href={link.href} key={link.href} onClick={()=>setOpen(false)}>{link.label}<Arrow diagonal /></Link>)}<a className="mobile-phone" href="tel:+61280678726">(02) 8067 8726</a></div></nav>}
   </header>;
 }
