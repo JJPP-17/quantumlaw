@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
         <div className="prose prose-lg max-w-none">
           <section className="mb-12">
             <p className="text-gray-600 mb-8">
-            This Privacy Policy applies to all personal information collected by Quantum Law Group Pty Ltd ACN 634 362 557 via the website located at <a href="https://quantumlaw.com.au" className="text-blue-500 hover:underline">quantumlaw.com.au</a>.
+            This Privacy Policy applies to personal information collected by Quantum Law Group Pty Ltd ACN 634 362 557 through this website, whether accessed at quantumlaw.com.au or quantumlaw.vercel.app.
             </p>
           </section>
 
@@ -45,7 +45,7 @@ export default function PrivacyPolicy() {
           <section className="mb-12">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">4. Access and Correction</h2>
             <p className="text-gray-600 mb-4">
-            National Privacy Principle 6 of the Australian Privacy Act 1998 (Cth) allows you to get access to, and correct, the personal information we hold about you in certain circumstances. If you would like to obtain such access, please contact us on the details set out above.
+            You may request access to or correction of personal information we hold about you. The Australian Privacy Principles address access and correction in APP 12 and APP 13. Please contact us using the details above to make a request.
             </p>
           </section>
 
@@ -59,7 +59,7 @@ export default function PrivacyPolicy() {
           <section className="mb-12">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">6. Transfer out of Australia</h2>
             <p className="text-gray-600 mb-4">
-            The website is hosted in Australia. However, we may transfer data on the website (including all personal information) to a service provider outside of Australia. You hereby consent to that transfer.
+            Our website and contact form use third-party service providers. Information submitted through the website may be processed or stored outside Australia. Please contact us if you would like further information about how your information is handled.
             </p>
           </section>
 

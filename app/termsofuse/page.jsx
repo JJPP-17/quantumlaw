@@ -15,7 +15,7 @@ export default function TermsOfUse() {
           <h1 className="text-2xl font-bold text-gray-900 mb-8">Quantum Law Group Terms of Use</h1>
           <section className="mb-12">
             <p className="text-gray-600 mb-8">
-            These Terms of Use (Terms) govern your use of our website located at <a href="https://quantumlaw.com.au" className="text-blue-500 hover:underline">quantumlaw.com.au</a> and form a binding contractual agreement between you, the user of the Site and us, Quantum Law Group Pty Ltd ACN 634 362 557
+            These Terms of Use (Terms) govern your use of this website, whether accessed at quantumlaw.com.au or quantumlaw.vercel.app, and form a binding contractual agreement between you, the user of the Site and us, Quantum Law Group Pty Ltd ACN 634 362 557
             <br/> <br/>
             For that reason, these Terms are important and you should ensure that you read them carefully and contact us with any questions before you use the Site. You can contact us via email at <a href="mailto:zile@quantumlaw.com.au" className="text-blue-500 hover:underline">zile@quantumlaw.com.au</a>. 
             <br/> <br/>
@@ -128,15 +128,6 @@ export default function TermsOfUse() {
             </p>
           </section>
 
-          <section className="mt-12 pt-8 border-t border-gray-200">
-            <p className="text-sm text-gray-500">
-              Last updated on {new Date().toLocaleDateString('en-AU', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}. 
-            </p>
-          </section>
         </div>
       </div>
     </main>
