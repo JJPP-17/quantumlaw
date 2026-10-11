@@ -1,102 +1,13 @@
-'use client'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { supabase } from '../../lib/supabaseClient'
-
+"use client";
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import usePublicRows from "../utils/usePublicRows";
+import { Arrow, PageHero, ContactBand, ContentState } from "../components/PublicDesign";
 export default function OurTeam() {
-  const [teamMembers, setTeamMembers] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    fetchTeamMembers();
-  }, []);
-
-  async function fetchTeamMembers() {
-    try {
-      const { data, error } = await supabase
-        .from('ourteam')
-        .select('*')
-        .order('created_at', { ascending: true });
-
-      if (error) throw error;
-      setTeamMembers(data || []);
-    } catch (error) {
-      console.error('Error fetching team members:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-blue-600">Loading...</div>
-      </div>
-    );
-  }
-
-  return (
-    <main className="bg-white">   
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-gray-50 to-white pt-32 pb-16">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 mt-10">
-              Meet Our Team
-            </h1>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6"></div>
-            <p className="text-base md:text-md text-gray-600 max-w-2xl mx-auto">
-              We work together on a task-force basis, bringing together the perfect mix of expertise across practice areas to deliver exceptional results.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Grid */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 mb-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {teamMembers
-            .filter((member) => member && member.membername)
-            .sort((a, b) => a.ranking - b.ranking)
-            .map((member) => (
-              <Link
-                key={member.id}
-                href={`/ourteam/${member.membername}`}
-                className="group relative bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300"
-              >
-                {/* Image Container */}
-                <div className="relative aspect-[3/4] overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/quantimages/${member.id}/${member.filename}`}
-                    alt={member.membername}
-                    fill
-                    className="object-cover transform group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-
-                {/* Text Content */}
-                <div className="p-6 bg-white">
-                  <h2 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-                    {member.membername}
-                  </h2>
-                  <p className="text-blue-600 font-medium mt-1">
-                    {member.position}
-                  </p>
-                  <div className="mt-4 flex items-center text-sm text-gray-600 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                    <span>View Profile</span>
-                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                </div>
-              </Link>
-            ))}
-        </div>
-      </section>
-
-      
-    </main>
-  );
-} 
+  const { rows, loading, error, reload } = usePublicRows("ourteam", "ranking", true);
+  const [search, setSearch] = useState("");
+  const featuredNames = ["Zile Yu", "William Wang", "Daven Rasaratnam", "Adriana Vontelas"];
+  const people = rows.filter(person=>featuredNames.includes(person.membername)).sort((a,b)=>featuredNames.indexOf(a.membername)-featuredNames.indexOf(b.membername)).filter(person=>`${person.membername} ${person.position || ""} ${person.expertise || ""}`.toLowerCase().includes(search.toLowerCase()));
+  return <main id="main-content" className="public-page designed-page"><PageHero eyebrow="Our people" title="Our people." description="Meet the lawyers who work across our disputes, transactions and advisory matters." /><section className="section-space"><div className="site-container"><div className="list-toolbar"><div><span className="eyebrow">MEET YOUR TEAM</span><h2 className="team-list-title">Meet the team.</h2></div><div className="search-field"><label htmlFor="people-search">Find a person or expertise</label><input id="people-search" type="search" placeholder="Name, role, or expertise" value={search} onChange={event=>setSearch(event.target.value)} /></div></div>{loading||error||people.length===0?<ContentState loading={loading} error={error} empty="No people match your search. Try another name or area of expertise." onRetry={reload}/>:<div className="people-grid people-list leadership-grid">{people.map(person=><Link key={person.id} href={`/ourteam/${encodeURIComponent(person.membername)}`} className="person-card"><div className="person-photo">{person.filename&&<Image src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/quantimages/${person.id}/${person.filename}`} alt={person.membername} fill sizes="(max-width: 560px) 100vw, (max-width: 1100px) 45vw, 23vw" />}<span className="person-arrow"><Arrow diagonal /></span></div><h3>{person.membername}</h3><p>{person.position}</p></Link>)}</div>}</div></section><section id="structure" className="team-structure-section" aria-labelledby="team-structure-title"><div className="team-structure-shade"/><div className="site-container team-structure-content"><span className="eyebrow">HOW WE WORK TOGETHER</span><h2 id="team-structure-title">Our structure.</h2><p>In order to deliver outstanding results and solve the most difficult problems for our clients, we have developed our own unique structure and approach. Accordingly we are selective as to the type of matters we undertake. We work together on a task-force basis on all of our matters, bringing to bear the requisite mix of people and expertise across practice areas.</p><h3>Our team consists of:</h3><ul className="team-composition"><li>1 Managing Partner</li><li>2 Partners</li><li>1 Special Counsel</li><li>5 Paralegals</li></ul><div className="team-structure-divider"/><span className="eyebrow">SETTING STANDARDS</span><h2>Selection and training.</h2><p>We carefully select and rigorously train our lawyers. Every new colleague joins a team committed to excellent work, continual learning, and practical results for our clients.</p><p>Recognition is a benchmark we aim to build on. We keep refining how we work so our clients receive thoughtful advice and strong representation.</p><Link className="team-structure-link" href="/howweoperate">Explore our approach <Arrow/></Link></div></section><ContactBand /></main>;
+}

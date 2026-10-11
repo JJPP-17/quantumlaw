@@ -32,7 +32,7 @@ IMPORTANT DISCLAIMERS:
 - Direct urgent legal matters to contact the firm directly at +61 2 9188 8866
 
 Firm Information:
-- Location: Suite 1503, Level 15, 447 Kent Street, Sydney NSW 2000
+- Location: Suite 1805, Level 18/1 Bligh St, Sydney NSW 2000
 - Phone: +61 2 9188 8866
 - Email: info@quantumlaw.com.au
 - Consultation booking: https://calendly.com/quantumlaw/strategyconsult

@@ -9,7 +9,7 @@ export const generateMetadata = () => {
 
 export default function PrivacyPolicy() {
   return (
-    <main className="bg-white pt-32 pb-20">
+    <main id="main-content" className="public-page policy-page bg-white pt-16 pb-20">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-2xl font-bold text-gray-900 mb-8">Quantum Law Group Privacy Policy</h1>
         

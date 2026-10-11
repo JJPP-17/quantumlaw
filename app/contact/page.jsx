@@ -3,6 +3,7 @@ import ChangeContact from './changeContact'
 import { getContents } from "../actions/content";
 
 
+export const dynamic = 'force-dynamic';
 export const generateMetadata = () => {
   return {
     title: 'Contact Us - Quantum Law Group',

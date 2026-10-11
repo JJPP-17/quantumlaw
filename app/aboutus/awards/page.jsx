@@ -3,6 +3,7 @@ import { getContents } from '../../actions/content'
 import { getValue } from '../../utils/content'
 import AwardsClient from './awardsClient'
 
+export const dynamic = 'force-dynamic';
 export const generateMetadata = () => {
   return {
     title: 'Our Awards - Quantum Law Group',

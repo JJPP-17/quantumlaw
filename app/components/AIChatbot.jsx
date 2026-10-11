@@ -30,8 +30,8 @@ export default function AIChatbot() {
   }
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+    if (isOpen) scrollToBottom()
+  }, [messages, isOpen])
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return
@@ -78,7 +78,7 @@ export default function AIChatbot() {
       const errorMessage = {
         id: Date.now() + 1,
         type: 'bot',
-        content: 'I apologize, but I\'m experiencing technical difficulties. Please try again in a moment or contact us directly at +61 2 9188 8866.',
+        content: 'I apologize, but I\'m experiencing technical difficulties. Please try again in a moment or contact us directly at (02) 8067 8726.',
         timestamp: new Date()
       }
       setMessages(prev => [...prev, errorMessage])
@@ -108,17 +108,17 @@ export default function AIChatbot() {
       {/* Chat Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-110"
-        aria-label="Open AI Chat Assistant"
+        className="chat-toggle fixed bottom-6 right-6 z-50 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-110"
+        aria-label={isOpen ? "Close AI Chat Assistant" : "Open AI Chat Assistant"} aria-expanded={isOpen}
       >
         {isOpen ? <FaTimes size={24} /> : <FaRobot size={24} />}
       </button>
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-40 w-96 h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col">
+        <div className="chat-panel fixed bottom-24 right-6 z-40 w-96 h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col">
           {/* Header */}
-          <div className="bg-blue-600 text-white p-4 rounded-t-2xl flex items-center justify-between">
+          <div className="chat-panel-header bg-blue-600 text-white p-4 rounded-t-2xl flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                 <FaRobot size={16} />

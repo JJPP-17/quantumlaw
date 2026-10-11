@@ -1,6 +1,7 @@
 "use server";
 
 
+import { requireAdmin } from "../../lib/supabaseServer";
 import { revalidatePath } from "next/cache";
 import { supabase } from "../../lib/supabaseClient";
 
@@ -20,23 +21,25 @@ export async function getContents() {
       .order("key", { ascending: true });
 
     if (error) throw error;
-    return { data };
+    return { data: data ?? [] };
   } catch (error) {
-    return { error: "Failed to fetch contents" };
+    return { data: [], error: "Failed to fetch contents" };
   }
 }
 
 export async function createContent(formData: FormData) {
   try {
+    const supabase = await requireAdmin();
+
     const { error } = await supabase.from("content").insert({
-      key: formData.get("new_key"),
-      value: formData.get("value"),
-      description: formData.get("description"),
+      key: requiredText(formData, "new_key", 160),
+      value: requiredText(formData, "value", 50000),
+      description: String(formData.get("description") || "").slice(0, 2000),
     });
 
     if (error) throw error;
 
-    revalidatePath("/admin");
+    revalidatePath("/", "layout");
     return { message: "Content created successfully" };
   } catch (error) {
     return { error: "Failed to create content" };
@@ -45,20 +48,28 @@ export async function createContent(formData: FormData) {
 
 export async function updateContent(id: number, formData: FormData) {
   try {
+    const supabase = await requireAdmin();
+
     const { error } = await supabase
       .from("content")
       .update({
-        key: formData.get("key"),
-        value: formData.get("value"),
-        description: formData.get("description"),
+        key: requiredText(formData, "key", 160),
+        value: requiredText(formData, "value", 50000),
+        description: String(formData.get("description") || "").slice(0, 2000),
       })
-      .eq("id", id);
+      .eq("id", id).select("id").single();
 
     if (error) throw error;
 
-    revalidatePath("/admin");
+    revalidatePath("/", "layout");
     return { message: "Content updated successfully" };
   } catch (error) {
     return { error: "Failed to update content" };
   }
+}
+
+function requiredText(form: FormData, key: string, max: number) {
+ const value = form.get(key);
+ if (typeof value !== "string" || !value.trim() || value.length > max) throw new Error("Invalid content");
+ return value.trim();
 }

@@ -1,6 +1,7 @@
 "use server";
 
 
+import { requireAdmin } from "../../lib/supabaseServer";
 import { revalidatePath } from "next/cache";
 import { supabase } from "../../lib/supabaseClient";
 
@@ -36,6 +37,8 @@ export async function getQuantTeam() {
   
 export async function createQuantTeam(formData: FormData) {
     try {
+    const supabase = await requireAdmin();
+
       const { error } = await supabase.from("ourteam").insert({
         name: formData.get("name"),
         position: formData.get("position"),
@@ -48,7 +51,7 @@ export async function createQuantTeam(formData: FormData) {
   
       if (error) throw error;
   
-      revalidatePath("/admin");
+      revalidatePath("/", "layout");
       return { message: "Quant Team created successfully" };
     } catch (error) {
       console.log(error);
@@ -59,6 +62,8 @@ export async function createQuantTeam(formData: FormData) {
   
 export async function updateQuantTeam(id: number, formData: FormData) {
     try {
+    const supabase = await requireAdmin();
+
       const { error } = await supabase
         .from("ourteam")
         .update({
@@ -70,11 +75,11 @@ export async function updateQuantTeam(id: number, formData: FormData) {
           mobilenumber: formData.get("mobilenumber"),
           email: formData.get("email"),
         })
-        .eq("id", id);
+        .eq("id", id).select("id").single();
   
       if (error) throw error;
   
-      revalidatePath("/admin");
+      revalidatePath("/", "layout");
       return { message: "Quant Team updated successfully" };
     } catch (error) {
       return { error: "Failed to update Quant Team" };

@@ -7,9 +7,12 @@ export default function LoginDetails() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setBusy(true); setMessage('');
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: username,
@@ -20,10 +23,17 @@ export default function LoginDetails() {
         throw error;
       }
 
-      localStorage.setItem('user', JSON.stringify({ username })); // Simulate login
-      router.push('/admin'); // Redirect to admin dashboard
+      if (data.user?.app_metadata?.role !== 'admin') {
+        await supabase.auth.signOut();
+        setMessage('This account has not been granted administrator access.');
+        return;
+      }
+      router.replace('/admin');
+      router.refresh();
     } catch (error) {
-      alert('You are not authorized to access this page');
+      setMessage('Unable to sign in. Check your email and password.');
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -32,9 +42,9 @@ export default function LoginDetails() {
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-96">
         <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">Login</h2>
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="username">Username</label>
+          <label className="block text-gray-700 mb-2" htmlFor="username">Email address</label>
           <input
-            type="text"
+            type="email" autoComplete="username"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -45,7 +55,7 @@ export default function LoginDetails() {
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="password">Password</label>
           <input
-            type="password"
+            type="password" autoComplete="current-password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -53,8 +63,9 @@ export default function LoginDetails() {
             required
           />
         </div>
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition">
-          Login
+        {message && <p role="alert" className="text-red-700 mb-4">{message}</p>}
+        <button disabled={busy} type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition">
+          {busy ? "Signing in…" : "Sign in"}
         </button>
       </form>
     </div>

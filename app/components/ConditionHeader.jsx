@@ -7,7 +7,7 @@ export default function ConditionalHeadear() {
   const pathname = usePathname();
 
   // Only render the Header if the pathname is not '/login'
-  return pathname !== '/admin' && pathname !== '/login' ?(
+  return !pathname.startsWith('/admin') && pathname !== '/login' ?(
     <Navigation/> // Pass the logout function to Header
   ) : null;
 };

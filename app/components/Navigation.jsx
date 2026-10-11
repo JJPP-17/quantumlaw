@@ -1,119 +1,25 @@
-'use client'
-import { useState } from 'react'
-import Image from 'next/image'
-import { assets } from '../assets/assets'
-import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
-import { IoIosArrowDown } from "react-icons/io";
-import MyLink from './MyLink';
+"use client";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { assets } from "../assets/assets";
+import { Arrow } from "./PublicDesign";
+
+const links = [{ href: "/whatwedo", label: "Expertise" }, { href: "/ourteam", label: "Our people" }, { href: "/news", label: "Insights" }, { href: "/aboutus", label: "Our firm" }];
 export default function Navigation() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false)
-  const [isAIDropdownOpen, setIsAIDropdownOpen] = useState(false)
-
-  return (
-    <header className="fixed w-full bg-white border-b border-gray-100 z-50">
-      <nav className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="flex justify-between items-center h-20">
-          <MyLink href="/" className="text-2xl font-bold text-gray-900">
-            <Image src={assets.logo} alt="Quantum Law Logo" width={180} height={180} />
-          </MyLink>
-
-          <div className="hidden md:flex space-x-8 text-md sm:text-base">
-            <div className="relative group">
-              <button 
-                className="flex items-center text-gray-600 hover:text-blue-400 space-x-1"
-                onMouseEnter={() => setIsAboutDropdownOpen(true)}
-                onMouseLeave={() => setIsAboutDropdownOpen(false)}
-              >
-                <span>ABOUT US</span>
-                <IoIosArrowDown className={`h-4 w-4 transition-transform ${isAboutDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              
-              {isAboutDropdownOpen && (
-                <div 
-                  className="absolute top-full left-0 bg-white border border-gray-100 shadow-lg py-2 min-w-[200px]"
-                  onMouseEnter={() => setIsAboutDropdownOpen(true)}
-                  onMouseLeave={() => setIsAboutDropdownOpen(false)}
-                >
-                  <MyLink 
-                    href="/aboutus" 
-                    className="text-md sm:text-base block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-blue-400"
-                  >
-                    ABOUT
-                  </MyLink>
-                  <MyLink 
-                    href="/howweoperate" 
-                    className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-blue-400"
-                  >
-                    HOW WE OPERATE
-                  </MyLink>
-                  <MyLink 
-                    href="/aboutus/awards" 
-                    className="block px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-blue-400"
-                  >
-                    AWARDS AND RECOGNITION
-                  </MyLink>
-                </div>
-              )}
-            </div>
-
-            <MyLink href="/whatwedo" className="text-gray-600 hover:text-blue-400">
-              WHAT WE DO
-            </MyLink>
-            <MyLink href="/ourteam" className="text-gray-600 hover:text-blue-400">
-              OUR TEAM
-            </MyLink>
-            <MyLink href="/news" className="text-gray-600 hover:text-blue-400">
-              NEWS
-            </MyLink>
-            
-            
-            <MyLink href="/careers" className="text-gray-600 hover:text-blue-400">
-              CAREERS
-            </MyLink>
-            <MyLink href="/contact" className="text-gray-600 hover:text-blue-400">
-              CONTACT
-            </MyLink>
-          </div>
-
-          <button 
-            className="md:hidden text-gray-600 hover:text-blue-400"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? (
-              <HiOutlineX className="h-8 w-8" />
-            ) : (
-              <HiOutlineMenu className="h-8 w-8" />
-            )}
-          </button>
-        </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden py-4">
-            <div className="flex flex-col space-y-4">
-              <div className="space-y-2">
-                <div className="text-gray-600 px-2">ABOUT US</div>
-                <div className="pl-4 space-y-2">
-                  <MyLink href="/aboutus" className="block text-gray-600">ABOUT</MyLink>
-                  <MyLink href="/aboutus/awards" className="block text-gray-600">AWARDS AND RECOGNITION</MyLink>
-                </div>
-              </div>
-              <MyLink href="/whatwedo" className="text-gray-600">WHAT WE DO</MyLink>
-              <MyLink href="/ourteam" className="text-gray-600">OUR TEAM</MyLink>
-              <MyLink href="/news" className="text-gray-600">NEWS</MyLink>
-              <div className="space-y-2">
-                <div className="text-gray-600 px-2">AI TOOLS</div>
-                <div className="pl-4 space-y-2">
-                  <MyLink href="/ai-assessment" className="block text-gray-600">Case Assessment</MyLink>
-                  <MyLink href="/ai-content" className="block text-gray-600">Content Generator</MyLink>
-                </div>
-              </div>
-              <MyLink href="/careers" className="text-gray-600">CAREERS</MyLink>
-              <MyLink href="/contact" className="text-gray-600">CONTACT</MyLink>
-            </div>
-          </div>
-        )}
-      </nav>
-    </header>
-  )
-} 
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => { const onKey = (event) => { if (event.key === "Escape") setOpen(false); }; document.addEventListener("keydown", onKey); return () => document.removeEventListener("keydown", onKey); }, []);
+  return <header className="site-header"><div className="contact-ribbon"><div className="site-container"><a href="tel:+61280678726">(02) 8067 8726</a><a href="mailto:info@quantumlaw.com.au">info@quantumlaw.com.au</a></div></div>
+    <a href="#main-content" className="skip-link">Skip to content</a>
+    <div className="site-container nav-inner">
+      <Link href="/" className="nav-logo" onClick={() => setOpen(false)}><Image src={assets.logo} alt="Quantum Law Group" width={190} height={62} priority /></Link>
+      <nav className="desktop-nav" aria-label="Main navigation">{links.map(link => <Link key={link.href} href={link.href} aria-current={pathname.startsWith(link.href) ? "page" : undefined}>{link.label}</Link>)}</nav>
+      <Link className="nav-contact" href="/contact">Contact us <Arrow diagonal /></Link>
+      <button className="nav-toggle" type="button" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen(!open)}><span className={open ? "is-open" : ""} /><span className={open ? "is-open" : ""} /></button>
+    </div>
+    {open && <nav className="mobile-menu" id="mobile-menu" aria-label="Mobile navigation"><div className="site-container">{[...links,{href:"/howweoperate",label:"Our approach"},{href:"/aboutus/awards",label:"Recognition"},{href:"/careers",label:"Careers"},{href:"/contact",label:"Contact us"}].map(link=><Link href={link.href} key={link.href} onClick={()=>setOpen(false)}>{link.label}<Arrow diagonal /></Link>)}<a className="mobile-phone" href="tel:+61280678726">(02) 8067 8726</a></div></nav>}
+  </header>;
+}
