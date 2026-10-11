@@ -63,15 +63,6 @@ export default function PrivacyPolicy() {
             </p>
           </section>
 
-          <section className="mt-12 pt-8 border-t border-gray-200">
-            <p className="text-sm text-gray-500">
-              Last updated on {new Date().toLocaleDateString('en-AU', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}. 
-            </p>
-          </section>
         </div>
       </div>
     </main>

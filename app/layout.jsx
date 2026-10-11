@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const generateMetadata = () => {
   return {
     title: 'Quantum Law Group',
-    description: 'Learn more about our team and values at Quantum Law Group',
+    description: 'Quantum Law Group is an independent Sydney law firm advising on disputes, transactions and personal legal matters.',
   }
 }
 
