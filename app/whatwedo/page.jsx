@@ -32,7 +32,7 @@ export default function WhatWeDo() {
         <div className="practice-feature-heading"><span className="eyebrow">{area.eyebrow}</span><span className="practice-feature-number">{String(index + 1).padStart(2, "0")} / {String(practiceAreas.length).padStart(2, "0")}</span></div>
         <h2>{area.title}</h2>
         <div className={`practice-feature-grid${area.image ? " has-awards" : ""}`}>
-          <div className="practice-feature-copy"><p className="practice-feature-intro">{area.intro}</p><ul>{area.outcomes.map((outcome, itemIndex) => <li key={itemIndex}><span aria-hidden="true">↗</span><p>{outcome}</p></li>)}</ul><Link href={`/whatwedo/${area.id}`} className="text-link">Explore this practice area <Arrow /></Link></div>
+          <div className="practice-feature-copy"><p className="practice-feature-intro">{area.intro}</p><ul>{area.outcomes.map((outcome, itemIndex) => <li key={itemIndex}><span className="outcome-marker" aria-hidden="true"/><p>{outcome}</p></li>)}</ul><Link href={`/whatwedo/${area.id}`} className="text-link">Explore this practice area <Arrow /></Link></div>
           {area.image && <aside className="practice-awards"><div className="practice-awards-header"><span className="eyebrow">RECOGNITION</span><Link href="/aboutus/awards" aria-label={`View awards for ${area.title}`}><Arrow diagonal /></Link></div><Image src={area.image} alt={area.imageAlt} width={1800} height={2250} sizes="(max-width: 800px) 100vw, 36vw" /><Link href="/aboutus/awards" className="practice-awards-footer">More awards and recognition <Arrow /></Link></aside>}
         </div>
       </div>

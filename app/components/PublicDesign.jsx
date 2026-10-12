@@ -13,5 +13,5 @@ export function ContactBand({ title = "Let’s find your way forward.", descript
 }
 
 export function ContentState({ loading, error, empty = "There are no results to show right now.", onRetry }) {
-  return <div className="content-state" role="status"><p>{loading ? "Loading…" : error ? "We couldn’t load this information. Please try again." : empty}</p>{error && onRetry && <button className="text-link" onClick={onRetry}>Try again <Arrow /></button>}</div>;
+  return <div className={`content-state${loading ? " content-state-loading" : ""}`} role="status" aria-label={loading ? "Loading content" : undefined}><p>{loading ? "" : error ? "We couldn’t load this information. Please try again." : empty}</p>{error && onRetry && <button className="text-link" onClick={onRetry}>Try again <Arrow /></button>}</div>;
 }

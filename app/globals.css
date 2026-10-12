@@ -300,6 +300,13 @@
 .practice-index .practice-feature-intro{margin-bottom:20px}
 .practice-index .practice-feature-copy ul{margin-bottom:25px}
 .practice-index .practice-feature-copy li{padding:13px 0}
+
+/* Quiet markers keep the focus on each matter outcome. */
+.practice-feature-copy li .outcome-marker{display:block;width:8px;height:8px;margin:10px 0 0 2px;border-radius:50%;background:var(--blue)}
+.content-state-loading{min-height:170px;border:0;background:linear-gradient(100deg,#f2f5f9 20%,#e5ebf3 40%,#f2f5f9 60%);background-size:200% 100%;animation:content-wait 1.4s ease-in-out infinite}
+.content-state-loading p{display:none}
+@keyframes content-wait{to{background-position-x:-200%}}
+@media(prefers-reduced-motion:reduce){.content-state-loading{animation:none}}
 @media(max-width:800px){.practice-index .practice-intro-grid{grid-template-columns:1fr;gap:12px}.practice-index .practice-feature-grid.has-awards{grid-template-columns:1fr}.practice-index .practice-awards{max-width:420px}.practice-index .practice-feature{padding:48px 0 52px}}
 @media(max-width:560px){.practice-index .practice-introduction{padding:45px 0 48px}.practice-index .practice-jump-nav a{min-height:58px;padding:11px 14px}.practice-index .practice-feature{padding:40px 0 44px}.practice-index .practice-feature h2{font-size:34px;margin-bottom:20px}.practice-index .practice-awards img{max-height:320px}}
 .practice-index .practice-feature{padding:42px 0 45px}
